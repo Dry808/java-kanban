@@ -42,9 +42,16 @@ public class Main {
 
 
 
+        subTask2.setStatus(Status.DONE);
+        taskManager.updateSubTask(subTask2);
 
+        subTask3.setStatus(Status.IN_PROGRESS);
+        taskManager.updateSubTask(subTask3);
 
+        subTask3.setStatus(Status.DONE);
+        taskManager.updateSubTask(subTask3);
 
+        taskManager.deleteSubTask(6);
 
 
     }

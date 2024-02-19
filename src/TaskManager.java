@@ -66,12 +66,13 @@ public class TaskManager {
 
     public void updateSubTask(SubTask updateSubTask) {
         subTasks.put(updateSubTask.getId(), updateSubTask);
-
+        updateEpic(updateSubTask.getEpic());
     }
 
     public SubTask deleteSubTask(int id) {
         SubTask subTask = subTasks.get(id);
         subTasks.remove(id);
+        subTask.getEpic().getSubTasks().remove(subTask);
         return subTask;
     }
 
@@ -99,8 +100,32 @@ public class TaskManager {
     }
 
     public void updateEpic(Epic updateEpic) {
-        epics.put(updateEpic.getId(), updateEpic);
+
+        int counterDone = 0; // счётчик для подзачад со статусом Done
+        int counterNew = 0; // счётчик для подзадач со статусом New
+        if (updateEpic.getSubTasks() == null) {
+            updateEpic.setStatus(Status.NEW);
+        } else {
+            for (SubTask sub : updateEpic.getSubTasks()) {
+                if (sub.getStatus() == Status.DONE) {
+                    counterDone++;
+                } else if (sub.getStatus() == Status.NEW) {
+                    counterNew++;
+                } else {
+                    updateEpic.setStatus(Status.IN_PROGRESS);
+                }
+            }
+            if (counterDone == updateEpic.getSubTasks().size()) {
+                updateEpic.setStatus(Status.DONE);
+            }
+            if (counterNew == updateEpic.getSubTasks().size()) {
+                updateEpic.setStatus(Status.NEW);
+            }
+        }
+
     }
+
+
 
     public Epic deleteEpic(int id) {
         Epic epic = epics.get(id);
