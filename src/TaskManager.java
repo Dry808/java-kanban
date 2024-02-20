@@ -8,9 +8,8 @@ public class TaskManager {
     static int idSequence = 0;
 
 
-
     // Методы Task
-    public ArrayList<Task> getTasks(){
+    public ArrayList<Task> getTasks() {
         ArrayList<Task> task = new ArrayList<>(tasks.values());
         return task;
     }
@@ -44,14 +43,14 @@ public class TaskManager {
 
 
     // Методы SubTasks
-    public ArrayList<SubTask> getSubTasks(){
+    public ArrayList<SubTask> getSubTasks() {
         ArrayList<SubTask> subTask = new ArrayList<>(subTasks.values());
         return subTask;
     }
 
     public HashMap<Integer, SubTask> deleteAllSubTasks() {
         subTasks.clear();
-         return subTasks;
+        return subTasks;
     }
 
     public SubTask getSubTask(int id) {
@@ -79,7 +78,7 @@ public class TaskManager {
 
 
     //Методы Epic
-    public ArrayList<Epic> getEpics(){
+    public ArrayList<Epic> getEpics() {
         ArrayList<Epic> epic = new ArrayList<>(epics.values());
         return epic;
     }
@@ -132,6 +131,7 @@ public class TaskManager {
         Epic epic = epics.get(id);
         ArrayList<SubTask> subTasksTodelete = new ArrayList<>();
 
+        //удаляем сабтаски удалённого эпика
         for (SubTask sb : epic.getSubTasks()) {
             subTasksTodelete.add(sb);
         }
@@ -152,8 +152,6 @@ public class TaskManager {
     static int generateId() {
         return idSequence++;
     }
-
-
 
 
 }
