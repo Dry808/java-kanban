@@ -10,6 +10,17 @@ public class SubTask extends Task {
         }
     }
 
+    @Override
+    public String toString() {
+        return "SubTask{" +
+                "epic=" + epic +
+                ", taskName='" + taskName + '\'' +
+                ", description='" + description + '\'' +
+                ", id=" + id +
+                ", status=" + status +
+                '}';
+    }
+
     public Epic getEpic() {
         return epic;
     }

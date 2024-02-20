@@ -4,9 +4,20 @@ public class Epic extends Task{
     private ArrayList<SubTask> subTasks;
 
 
-    Epic(String taskName, String description, Status status, ArrayList<SubTask> subTasks) {
+    Epic(String taskName, String description, Status status) {
         super(taskName, description, status);
-        this.subTasks = subTasks;
+        this.subTasks = new ArrayList<SubTask>();
+    }
+
+    @Override
+    public String toString() {
+        return "Epic{" +
+                "subTasks=" + subTasks.size() +
+                ", taskName='" + taskName + '\'' +
+                ", description='" + description + '\'' +
+                ", id=" + id +
+                ", status=" + status +
+                '}';
     }
 
     public ArrayList<SubTask> getSubTasks() {

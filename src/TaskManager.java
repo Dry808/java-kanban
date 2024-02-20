@@ -8,6 +8,7 @@ public class TaskManager {
     static int idSequence = 0;
 
 
+
     // Методы Task
     public ArrayList<Task> getTasks(){
         ArrayList<Task> task = new ArrayList<>(tasks.values());
@@ -100,6 +101,7 @@ public class TaskManager {
     }
 
     public void updateEpic(Epic updateEpic) {
+        epics.put(updateEpic.getId(), updateEpic);
 
         int counterDone = 0; // счётчик для подзачад со статусом Done
         int counterNew = 0; // счётчик для подзадач со статусом New
@@ -126,10 +128,18 @@ public class TaskManager {
     }
 
 
-
     public Epic deleteEpic(int id) {
         Epic epic = epics.get(id);
-        epics.remove(id);
+        ArrayList<SubTask> subTasksTodelete = new ArrayList<>();
+
+        for (SubTask sb : epic.getSubTasks()) {
+            subTasksTodelete.add(sb);
+        }
+        for (SubTask sb : subTasksTodelete) {
+            subTasks.remove(sb.getId());
+        }
+
+        epics.remove(epic.getId());
         return epic;
     }
 
@@ -138,7 +148,7 @@ public class TaskManager {
     }
 
 
-
+    // метод для генерации ID
     static int generateId() {
         return idSequence++;
     }
