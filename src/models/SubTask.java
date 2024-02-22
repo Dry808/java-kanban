@@ -1,3 +1,5 @@
+package models;
+
 public class SubTask extends Task {
     private Epic epic;
 
@@ -12,7 +14,7 @@ public class SubTask extends Task {
 
     @Override
     public String toString() {
-        return "SubTask{" +
+        return "models.SubTask{" +
                 "epic=" + epic +
                 ", taskName='" + taskName + '\'' +
                 ", description='" + description + '\'' +

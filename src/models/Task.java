@@ -1,3 +1,5 @@
+package models;
+
 import java.util.Objects;
 
 public class Task {
@@ -6,22 +8,12 @@ public class Task {
     protected int id;
     protected Status status;
 
-    @Override
-    public String toString() {
-        return "Task{" +
-                "taskName='" + taskName + '\'' +
-                ", description='" + description + '\'' +
-                ", id=" + id +
-                ", status=" + status +
-                '}';
-    }
 
-    Task(String taskName, String description, Status status) {
+    public Task(String taskName, String description, Status status) {
         this.taskName = taskName;
         this.description = description;
         this.status = status;
     }
-
 
     //getter and setter
     public String getTaskName() {
@@ -57,6 +49,16 @@ public class Task {
 
     public void setStatus(Status status) {
         this.status = status;
+    }
+
+    @Override
+    public String toString() {
+        return "models.Task{" +
+                "taskName='" + taskName + '\'' +
+                ", description='" + description + '\'' +
+                ", id=" + id +
+                ", status=" + status +
+                '}';
     }
 
 
