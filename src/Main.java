@@ -1,13 +1,19 @@
+import manager.InMemoryTaskManager;
+import manager.Managers;
 import manager.TaskManager;
 import models.Epic;
 import models.Status;
 import models.SubTask;
 import models.Task;
 
+import java.util.ArrayList;
+
 public class Main {
 
     public static void main(String[] args) {
-        TaskManager taskManager = new TaskManager();
+        TaskManager taskManager = Managers.getDefault();
+
+
 
 
         // Создаём 2 задачи, эпик с одной подзадачей и эпик с 2 подзадачами
@@ -36,7 +42,21 @@ public class Main {
         System.out.println(taskManager.getEpics());
 
         System.out.println(taskManager.getEpicSubTasks(epic2));
-
+        taskManager.getTask(task.getId());
+        taskManager.getTask(task2.getId());
+        taskManager.getTask(task.getId());
+        taskManager.getTask(task.getId());
+        taskManager.getTask(task.getId());
+        taskManager.getTask(task.getId());
+        taskManager.getTask(task.getId());
+        taskManager.getTask(task.getId());
+        taskManager.getTask(task.getId());
+        taskManager.getTask(task.getId());
+        taskManager.getEpic(epic.getId());
+        taskManager.getTask(task2.getId());
+        taskManager.getTask(task2.getId());
+        taskManager.getTask(task2.getId());
+        System.out.println(taskManager.getHistory());
 
         //Меняем статусы
         task.setStatus(Status.DONE);
