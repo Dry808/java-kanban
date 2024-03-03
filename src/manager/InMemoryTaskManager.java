@@ -107,7 +107,7 @@ public class InMemoryTaskManager implements TaskManager  {
 
 
     @Override
-    public Task getEpic(int id) {
+    public Epic getEpic(int id) {
         historyManager.add(epics.get(id));
         return epics.get(id);
     }
@@ -175,6 +175,9 @@ public class InMemoryTaskManager implements TaskManager  {
         return historyManager.getHistory();
     }
 
+    public static void setIdSequence(int idSequence) {
+        InMemoryTaskManager.idSequence = idSequence;
+    }
     // метод для генерации ID
     private static int generateId() {
         return idSequence++;
