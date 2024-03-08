@@ -4,12 +4,13 @@ import models.Epic;
 import models.SubTask;
 import models.Task;
 
-import java.util.ArrayList;
-import java.util.HashMap;
+
+import java.util.List;
+import java.util.Map;
 
 public interface TaskManager {
     // Методы Task
-    ArrayList<Task> getTasks();
+    List<Task> getTasks();
 
     void deleteAllTasks();
 
@@ -22,9 +23,9 @@ public interface TaskManager {
     Task deleteTask(int id);
 
     // Методы SubTasks
-    ArrayList<SubTask> getSubTasks();
+    List<SubTask> getSubTasks();
 
-    HashMap<Integer, SubTask> deleteAllSubTasks();
+    Map<Integer, SubTask> deleteAllSubTasks();
 
     SubTask getSubTask(int id);
 
@@ -35,7 +36,7 @@ public interface TaskManager {
     SubTask deleteSubTask(int id);
 
     //Методы Epic
-    ArrayList<Epic> getEpics();
+    List<Epic> getEpics();
 
     void deleteAllEpics();
 
@@ -47,7 +48,7 @@ public interface TaskManager {
 
     Epic deleteEpic(int id);
 
-    ArrayList<SubTask> getEpicSubTasks(Epic epic);
+    List<SubTask> getEpicSubTasks(Epic epic);
 
-    ArrayList<Task> getHistory();
+    List<Task> getHistory();
 }

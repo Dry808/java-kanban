@@ -18,8 +18,8 @@ public class InMemoryTaskManagerTest {
 
     @BeforeEach
     public void beforeEach() {
-       taskManager = Managers.getDefault();
-       InMemoryTaskManager.setIdSequence(0);
+        taskManager = Managers.getDefault();
+
     }
 
 
@@ -103,7 +103,7 @@ public class InMemoryTaskManagerTest {
         taskManager.updateTask(taskNewVersion);
         taskManager.getTask(taskNewVersion.getId());
 
-        assertEquals(task, taskInHistory, "В истории не сохраняют предыдущий вариант задачи");
+        assertEquals(task, taskInHistory, "В истории не сохраняется предыдущий вариант задачи");
 
     }
 }

@@ -7,18 +7,20 @@ import models.Task;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public class InMemoryTaskManager implements TaskManager  {
-    private HashMap<Integer, Task> tasks = new HashMap<>();
-    private HashMap<Integer, SubTask> subTasks = new HashMap<>();
-    private HashMap<Integer, Epic> epics = new HashMap<>();
+    private Map<Integer, Task> tasks = new HashMap<>();
+    private Map<Integer, SubTask> subTasks = new HashMap<>();
+    private Map<Integer, Epic> epics = new HashMap<>();
     private HistoryManager historyManager = Managers.getDefaultHistory();
-    private static int idSequence = 0;
+    private int idSequence = 0;
 
 
     // Методы Task
     @Override
-    public ArrayList<Task> getTasks() {
+    public List<Task> getTasks() {
         return new ArrayList<>(tasks.values());
     }
 
@@ -56,12 +58,12 @@ public class InMemoryTaskManager implements TaskManager  {
 
     // Методы SubTasks
     @Override
-    public ArrayList<SubTask> getSubTasks() {
+    public List<SubTask> getSubTasks() {
         return new ArrayList<>(subTasks.values());
     }
 
     @Override
-    public HashMap<Integer, SubTask> deleteAllSubTasks() {
+    public Map<Integer, SubTask> deleteAllSubTasks() {
         subTasks.clear();
         return subTasks;
     }
@@ -96,7 +98,7 @@ public class InMemoryTaskManager implements TaskManager  {
 
     //Методы Epic
     @Override
-    public ArrayList<Epic> getEpics() {
+    public List<Epic> getEpics() {
         return new ArrayList<>(epics.values());
     }
 
@@ -166,20 +168,18 @@ public class InMemoryTaskManager implements TaskManager  {
     }
 
     @Override
-    public ArrayList<SubTask> getEpicSubTasks(Epic epic) {
+    public List<SubTask> getEpicSubTasks(Epic epic) {
         return epic.getSubTasks();
     }
 
     @Override
-    public ArrayList<Task> getHistory(){
+    public List<Task> getHistory(){
         return historyManager.getHistory();
     }
 
-    public static void setIdSequence(int idSequence) {
-        InMemoryTaskManager.idSequence = idSequence;
-    }
+
     // метод для генерации ID
-    private static int generateId() {
+    private int generateId() {
         return idSequence++;
     }
 

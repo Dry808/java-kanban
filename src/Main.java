@@ -17,6 +17,7 @@ public class Main {
         taskManager.addTask(task);
         taskManager.addTask(task2);
 
+
         Epic epic = new Epic("Эпик 1", "Описание эпика", Status.NEW);
         SubTask subTask = new SubTask("Подзадача 1", "Подзадача эпика 1", Status.NEW, epic);
         taskManager.addEpic(epic);
