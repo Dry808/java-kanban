@@ -85,7 +85,7 @@ public class InMemoryTaskManager implements TaskManager  {
     @Override
     public void updateSubTask(SubTask updateSubTask) {
         subTasks.put(updateSubTask.getId(), updateSubTask);
-        updateEpic(updateSubTask.getEpic());
+        changeEpicStatus(updateSubTask.getEpic());
     }
 
     @Override
@@ -121,39 +121,17 @@ public class InMemoryTaskManager implements TaskManager  {
         return newEpic;
     }
 
+
     @Override
     public void updateEpic(Epic updateEpic) {
         epics.put(updateEpic.getId(), updateEpic);
-
-        int counterDone = 0; // счётчик для подзачад со статусом Done
-        int counterNew = 0; // счётчик для подзадач со статусом New
-        if (updateEpic.getSubTasks() == null) {
-            updateEpic.setStatus(Status.NEW);
-        } else {
-            for (SubTask sub : updateEpic.getSubTasks()) {
-                if (sub.getStatus() == Status.DONE) {
-                    counterDone++;
-                } else if (sub.getStatus() == Status.NEW) {
-                    counterNew++;
-                } else {
-                    updateEpic.setStatus(Status.IN_PROGRESS);
-                }
-            }
-            if (counterDone == updateEpic.getSubTasks().size()) {
-                updateEpic.setStatus(Status.DONE);
-            }
-            if (counterNew == updateEpic.getSubTasks().size()) {
-                updateEpic.setStatus(Status.NEW);
-            }
-        }
-
     }
 
 
     @Override
     public Epic deleteEpic(int id) {
         Epic epic = epics.get(id);
-        ArrayList<SubTask> subTasksToDelete = new ArrayList<>();
+        List<SubTask> subTasksToDelete = new ArrayList<>();
 
         //удаляем сабтаски удалённого эпика
         for (SubTask sb : epic.getSubTasks()) {
@@ -177,6 +155,29 @@ public class InMemoryTaskManager implements TaskManager  {
         return historyManager.getHistory();
     }
 
+    private void changeEpicStatus(Epic epic) {
+        int counterDone = 0; // счётчик для подзачад со статусом Done
+        int counterNew = 0; // счётчик для подзадач со статусом New
+        if (epic.getSubTasks() == null) {
+            epic.setStatus(Status.NEW);
+        } else {
+            for (SubTask sub : epic.getSubTasks()) {
+                if (sub.getStatus() == Status.DONE) {
+                    counterDone++;
+                } else if (sub.getStatus() == Status.NEW) {
+                    counterNew++;
+                } else {
+                    epic.setStatus(Status.IN_PROGRESS);
+                }
+            }
+            if (counterDone == epic.getSubTasks().size()) {
+                epic.setStatus(Status.DONE);
+            }
+            if (counterNew == epic.getSubTasks().size()) {
+                epic.setStatus(Status.NEW);
+            }
+        }
+    }
 
     // метод для генерации ID
     private int generateId() {

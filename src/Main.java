@@ -1,4 +1,3 @@
-import manager.InMemoryTaskManager;
 import manager.Managers;
 import manager.TaskManager;
 import models.Epic;
@@ -18,10 +17,13 @@ public class Main {
         taskManager.addTask(task2);
 
 
+
+
         Epic epic = new Epic("Эпик 1", "Описание эпика", Status.NEW);
         SubTask subTask = new SubTask("Подзадача 1", "Подзадача эпика 1", Status.NEW, epic);
         taskManager.addEpic(epic);
         taskManager.addSubTask(subTask);
+
 
 
         Epic epic2 = new Epic("Эпик 2", "Описание эпика 2", Status.NEW);
