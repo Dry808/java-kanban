@@ -3,9 +3,6 @@ package models;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import org.junit.jupiter.api.Test;
 
-import models.Epic;
-import models.Status;
-import models.SubTask;
 
 public class SubTaskTest {
 

@@ -3,8 +3,6 @@ package models;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import models.Status;
-import models.Epic;
 
 
 public class EpicTest {

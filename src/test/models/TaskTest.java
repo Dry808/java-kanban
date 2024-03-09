@@ -3,8 +3,6 @@ package models;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import org.junit.jupiter.api.Test;
 
-import models.Task;
-import models.Status;
 
 
 public class TaskTest {

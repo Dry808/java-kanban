@@ -26,16 +26,16 @@ public class Main {
 
 
 
-        Epic epic2 = new Epic("Эпик 2", "Описание эпика 2", Status.NEW);
-        SubTask subTask2 = new SubTask("Подзадача 2", "Подзадача эпика 2", Status.NEW, epic2);
-        SubTask subTask3 = new SubTask("Подзадача 3", "Подзадача эпика 2", Status.NEW, epic2);
+        Epic epic2 = new Epic("Эпик 2", "Описание эпика 2", Status.DONE);
+        SubTask subTask2 = new SubTask("Подзадача 2", "Подзадача эпика 2", Status.DONE, epic2);
+        SubTask subTask3 = new SubTask("Подзадача 3", "Подзадача эпика 2", Status.IN_PROGRESS, epic2);
         taskManager.addEpic(epic2);
         taskManager.addSubTask(subTask2);
         taskManager.addSubTask(subTask3);
 
         //удаляем задачу и эпик
         taskManager.deleteTask(1);
-        taskManager.deleteSubTask(5);
+        taskManager.deleteSubTask(6);
         taskManager.deleteEpic(2);
 
         taskManager.getTask(0);
