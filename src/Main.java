@@ -37,15 +37,14 @@ public class Main {
         taskManager.getEpic(6);
         taskManager.getTask(1);
         taskManager.getSubTask(4);
-        taskManager.getSubTask(3);
         taskManager.getTask(1);
-
 
 
 
         taskManager.getHistory();
         taskManager.deleteEpic(2);
         taskManager.getHistory();
+
 
 
 

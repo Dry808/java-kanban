@@ -1,18 +1,17 @@
 package manager;
 
+import models.Node;
 import models.Task;
 
 import java.util.*;
 
 
 public class InMemoryHistoryManager implements HistoryManager {
-    public Node<Task> head;
-    public Node<Task> tail;
+    private Node head;
+    private Node tail;
     private int size = 0;
 
-   // private List<Task> history = new ArrayList<>();
-    private Map<Integer, Node> history = new HashMap<>();
-
+    private final Map<Integer, Node> history = new HashMap<>();
 
 
     @Override
@@ -35,46 +34,46 @@ public class InMemoryHistoryManager implements HistoryManager {
         return getTasks();
     }
 
-    public Node<Task> linkLast(Task task) {
-        final Node<Task> oldTail = tail;
-        final Node<Task> newNode = new Node<>(oldTail, task, null);
+    public Node linkLast(Task task) {
+        final Node oldTail = tail;
+        final Node newNode = new Node(oldTail, task, null);
         tail = newNode;
-        if (oldTail == null){
+        if (oldTail == null) {
             head = newNode;
-        } else{
+        } else {
             oldTail.next = newNode;
         }
         size++;
         return newNode;
     }
 
-    public List<Task> getTasks(){
+    public List<Task> getTasks() {
         List<Task> historyList = new ArrayList<>();
-        Node<Task> currentNode = head;
+        Node currentNode = head;
 
-        while (currentNode != null){
+        while (currentNode != null) {
             historyList.add(currentNode.data);
             currentNode = currentNode.next;
         }
         return historyList;
     }
 
-    public void removeNode(Node node){
+    public void removeNode(Node node) {
         if (node == null) {
             return;
         }
-        Node last = node.prev;
-        Node future = node.next;
+        Node previous = node.prev;
+        Node next = node.next;
 
-        if (last != null) {
-            last.next = future;
+        if (previous != null) {
+            previous.next = next;
         } else {
-            head = future;
+            head = next;
         }
-        if (future != null) {
-            future.prev = last;
+        if (next != null) {
+            next.prev = previous;
         } else {
-            tail = last;
+            tail = previous;
         }
 
     }
@@ -82,30 +81,5 @@ public class InMemoryHistoryManager implements HistoryManager {
 
 }
 
-class Node<Task> {
-    public Task data;
-    public Node<Task> next;
-    public Node<Task> prev;
-
-
-    public Node(Node<Task> prev, Task data, Node<Task> next ) {
-        this.data = data;
-        this.next = next;
-        this.prev = prev;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Node<?> node = (Node<?>) o;
-        return Objects.equals(data, node.data) && Objects.equals(next, node.next) && Objects.equals(prev, node.prev);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(data, next, prev);
-    }
-}
 
 
