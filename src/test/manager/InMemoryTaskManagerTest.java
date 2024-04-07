@@ -82,7 +82,7 @@ public class InMemoryTaskManagerTest {
                 task.getDescription().equals(taskInManager.getDescription()) &&
                 task.getStatus().equals(taskInManager.getStatus()) && task.getId() == taskInManager.getId()) {
             fieldsChange = false;
-        }else {
+        } else {
             fieldsChange = true;
         }
 
