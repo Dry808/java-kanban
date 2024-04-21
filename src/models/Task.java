@@ -2,8 +2,11 @@ package models;
 
 import java.util.Objects;
 
+import static models.Type.TASK;
+
 public class Task {
     protected String taskName;
+    protected Type type;
     protected String description;
     protected int id;
     protected Status status;
@@ -13,6 +16,7 @@ public class Task {
         this.taskName = taskName;
         this.description = description;
         this.status = status;
+        type = TASK;
     }
 
     //getter and setter
