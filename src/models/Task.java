@@ -55,6 +55,11 @@ public class Task {
         this.status = status;
     }
 
+
+    public Type getType() {
+        return type;
+    }
+
     @Override
     public String toString() {
         return "models.Task{" +
