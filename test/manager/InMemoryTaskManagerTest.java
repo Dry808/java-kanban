@@ -82,7 +82,7 @@ public class InMemoryTaskManagerTest {
                 task.getDescription().equals(taskInManager.getDescription()) &&
                 task.getStatus().equals(taskInManager.getStatus()) && task.getId() == taskInManager.getId()) {
             fieldsChange = false;
-        }else {
+        } else {
             fieldsChange = true;
         }
 
@@ -104,4 +104,23 @@ public class InMemoryTaskManagerTest {
         assertEquals(task, taskInHistory, "В истории не сохраняется предыдущий вариант задачи");
 
     }
+
+    @Test
+    public void shouldDeleteSubTasksIfDeleteHisEpic() {
+        Epic epic = new Epic("Эпик", "Описание эпика", Status.NEW);
+        SubTask subTask = new SubTask("Сабтаск", "Сабтаск эпика", Status.NEW, epic);
+        SubTask subTask2 = new SubTask("Сабтаск 2", "Второй сабтаск эпика ", Status.NEW, epic);
+        taskManager.addEpic(epic);
+        taskManager.addSubTask(subTask);
+        taskManager.addSubTask(subTask2);
+
+        taskManager.deleteEpic(0);
+
+        assertFalse(taskManager.getSubTasks().contains(subTask));
+        assertFalse(taskManager.getSubTasks().contains(subTask2));
+
+
+
+    }
+
 }

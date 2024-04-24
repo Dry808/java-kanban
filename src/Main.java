@@ -10,36 +10,48 @@ public class Main {
     public static void main(String[] args) {
         TaskManager taskManager = Managers.getDefault();
 
-        // Создаём 2 задачи, эпик с одной подзадачей и эпик с 2 подзадачами
+        // Создаём 2 задачи, эпик с 3 подзадачами и эпик без подзадач
         Task task = new Task("Задача 1", "Описание задачи 1", Status.NEW);
-        Task task2 = new Task("Задача 2", "Описаине задачи 2", Status.NEW);
+        Task task2 = new Task("Задача 2", "Описание задачи 2", Status.IN_PROGRESS);
         taskManager.addTask(task);
         taskManager.addTask(task2);
 
 
-
-
-        Epic epic = new Epic("Эпик 1", "Описание эпика", Status.NEW);
-        SubTask subTask = new SubTask("Подзадача 1", "Подзадача эпика 1", Status.NEW, epic);
+        Epic epic = new Epic("Эпик 1", "Описание эпика 1", Status.NEW);
+        SubTask subTask = new SubTask("Подзадача 1", "Описание подзадачи 1", Status.NEW, epic);
+        SubTask subTask2 = new SubTask("Подзадача 2", "Описание подзадачи 2", Status.NEW, epic);
+        SubTask subTask3 = new SubTask("Подзадача 3", "Описание подзадачи 3", Status.NEW, epic);
         taskManager.addEpic(epic);
         taskManager.addSubTask(subTask);
-
-
-
-        Epic epic2 = new Epic("Эпик 2", "Описание эпика 2", Status.DONE);
-        SubTask subTask2 = new SubTask("Подзадача 2", "Подзадача эпика 2", Status.DONE, epic2);
-        SubTask subTask3 = new SubTask("Подзадача 3", "Подзадача эпика 2", Status.IN_PROGRESS, epic2);
-        taskManager.addEpic(epic2);
         taskManager.addSubTask(subTask2);
         taskManager.addSubTask(subTask3);
 
-        //удаляем задачу и эпик
-        taskManager.deleteTask(1);
-        taskManager.deleteSubTask(6);
-        taskManager.deleteEpic(2);
 
+        Epic epic2 = new Epic("Эпик 2", "Описание эпика 2", Status.NEW);
+        taskManager.addEpic(epic2);
+
+        // Запрашиваем задачи
+        taskManager.getTask(1);
+        taskManager.getEpic(2);
         taskManager.getTask(0);
-        taskManager.getEpic(4);
+        taskManager.getEpic(6);
+        taskManager.getTask(1);
+        taskManager.getSubTask(4);
+        taskManager.getTask(1);
+
+
+
+        taskManager.getHistory();
+        taskManager.deleteEpic(2);
+        taskManager.getHistory();
+
+
+
+
+
+
+
+
 
         printAllTasks(taskManager);
 
