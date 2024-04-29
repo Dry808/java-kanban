@@ -36,9 +36,6 @@ public class Main {
         Epic epic2 = new Epic("Эпик 2", "Описание эпика 2", Status.NEW);
         taskManager.addEpic(epic2);
 
-
-        String str = taskManager.taskToString(epic2);
-        Epic episs = (Epic) taskManager.taskFromString(str);
         // Запрашиваем задачи
         taskManager.getTask(1);
         taskManager.getEpic(2);

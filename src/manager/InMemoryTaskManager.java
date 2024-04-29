@@ -169,6 +169,10 @@ public class InMemoryTaskManager implements TaskManager  {
         return historyManager.getHistory();
     }
 
+    public void setIdSequence(int id) {
+        idSequence = id;
+    }
+
     private void changeEpicStatus(Epic epic) {
         int counterDone = 0; // счётчик для подзачад со статусом Done
         int counterNew = 0; // счётчик для подзадач со статусом New

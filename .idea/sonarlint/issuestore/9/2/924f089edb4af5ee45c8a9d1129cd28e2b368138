@@ -1,0 +1,15 @@
+
+0
+java:S1220""Move this file to a named package.
+V	java:S125"<This block of commented-out lines of code should be removed.(­õ¹›ýÿÿÿÿ
+E	java:S106C"+Replace this use of System.out by a logger.(±¤ýÚýÿÿÿÿ
+E	java:S106E"+Replace this use of System.out by a logger.(ÍÖÖûÿÿÿÿ
+E	java:S106G"+Replace this use of System.out by a logger.(ªÍîàúÿÿÿÿ
+O
+java:S4838H"4Change "Task" to the type handled by the Collection.(ìŒ¹Ïûÿÿÿÿ
+@	java:S106I"+Replace this use of System.out by a logger.(ÃÜ²
+E	java:S106L"+Replace this use of System.out by a logger.(ËÛ„­øÿÿÿÿ
+E	java:S106O"+Replace this use of System.out by a logger.(¬÷óîûÿÿÿÿ
+E	java:S106Q"+Replace this use of System.out by a logger.(Á¥ä‡üÿÿÿÿ
+E	java:S106T"+Replace this use of System.out by a logger.(ÏùŸœûÿÿÿÿ
+E	java:S106V"+Replace this use of System.out by a logger.(ÍÖÖûÿÿÿÿ
