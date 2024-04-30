@@ -6,11 +6,11 @@ public class Managers {
 
     }
 
-    public static FileBackedTaskManager getDefault(String fileName) {
+    public static TaskManager getDefault(String fileName) {
         return new FileBackedTaskManager(fileName);
     }
 
-    public static TaskManager getInMemoryTaskManager() {   // для тестов
+    public static TaskManager getInMemoryTaskManager() {
         return new InMemoryTaskManager();
     }
 

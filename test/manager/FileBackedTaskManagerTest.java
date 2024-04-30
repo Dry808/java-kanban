@@ -18,7 +18,7 @@ class FileBackedTaskManagerTest {
 
     @BeforeEach
     public void beforeEach() {
-        fileBackedTaskManager = Managers.getDefault("testFile.csv");
+        fileBackedTaskManager = new FileBackedTaskManager("testFile.csv");
     }
 
     @BeforeEach

@@ -1,4 +1,5 @@
-import manager.FileBackedTaskManager;
+
+import manager.Managers;
 import manager.TaskManager;
 import models.Epic;
 import models.Status;
@@ -9,8 +10,7 @@ import models.Task;
 public class Main {
 
     public static void main(String[] args) {
-       // TaskManager taskManager = Managers.getDefault();
-        FileBackedTaskManager taskManager = FileBackedTaskManager.loadFromFile("file.csv");
+        TaskManager taskManager = Managers.getDefault("file.csv");
 
 
 
