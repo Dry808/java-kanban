@@ -5,10 +5,8 @@ import models.Status;
 import models.SubTask;
 import models.Task;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.time.Duration;
+import java.util.*;
 
 public class InMemoryTaskManager implements TaskManager  {
     protected Map<Integer, Task> tasks = new HashMap<>();
@@ -71,6 +69,7 @@ public class InMemoryTaskManager implements TaskManager  {
         for (Epic epic : epics.values()) {
             getEpicSubTasks(epic).clear();
             changeEpicStatus(epic);
+            changeEpicDuration(epic);
         }
         subTasks.clear();
         return subTasks;
@@ -88,6 +87,7 @@ public class InMemoryTaskManager implements TaskManager  {
         newSubTask.setId(generateId());
         subTasks.put(newSubTask.getId(), newSubTask);
         changeEpicStatus(newSubTask.getEpic());
+        changeEpicDuration(newSubTask.getEpic());
         return newSubTask;
     }
 
@@ -95,6 +95,7 @@ public class InMemoryTaskManager implements TaskManager  {
     public void updateSubTask(SubTask updateSubTask) {
         subTasks.put(updateSubTask.getId(), updateSubTask);
         changeEpicStatus(updateSubTask.getEpic());
+        changeEpicDuration(updateSubTask.getEpic());
     }
 
     @Override
@@ -102,6 +103,7 @@ public class InMemoryTaskManager implements TaskManager  {
         SubTask subTask = subTasks.remove(id);
         subTask.getEpic().getSubTasks().remove(subTask);
         changeEpicStatus(subTask.getEpic());
+        changeEpicDuration(subTask.getEpic());
         historyManager.remove(id);
         return subTask;
     }
@@ -129,6 +131,7 @@ public class InMemoryTaskManager implements TaskManager  {
     public Epic addEpic(Epic newEpic) {
         newEpic.setId(generateId());
         changeEpicStatus(newEpic);
+        changeEpicDuration(newEpic);
         epics.put(newEpic.getId(), newEpic);
         return newEpic;
     }
@@ -202,5 +205,48 @@ public class InMemoryTaskManager implements TaskManager  {
         return idSequence++;
     }
 
+    private void changeEpicDuration(Epic epic) {
+        // Дата начала эпика - момент начала самой раннего сабтаска
+        // Дата конца - дата начала самого последнего сабтаска + его длительность
+        // длительность - длительность всех сабтасков
 
+        List<SubTask> subTasksTimeStart = epic.getSubTasks().stream() // сортируем сабтаски эпика по времени начало
+                .filter(subTask -> subTask.getStartTime() != null)
+                .sorted(Comparator.comparing(SubTask::getStartTime))
+                .toList();
+
+        Duration allSubTasksDuration = epic.getSubTasks().stream() // считаем общую продолжительность сабтасков
+                .filter(subTask -> subTask.getDuration() != null)
+                .map(SubTask::getDuration)
+                .reduce(Duration.ZERO, Duration::plus);
+
+        // дата начала эпика
+        epic.setStartTime(subTasksTimeStart.getFirst().getStartTime());
+
+        // дата конца эпика
+        epic.setEndTime(subTasksTimeStart.getLast().getStartTime().plus(subTasksTimeStart.getLast().getDuration()));
+
+        // продолжительность эпика
+        epic.setDuration(allSubTasksDuration);
+    }
+
+
+
+    public static void main(String[] args) {
+            InMemoryTaskManager taskManager = new InMemoryTaskManager();
+
+            Epic epic = new Epic("NameEpic", "Opisanie", Status.NEW);
+            SubTask subTask = new SubTask("Name", "Descr", Status.NEW, epic, 20L, "05.05.2024 11:00");
+            SubTask subTask2 = new SubTask("Name2", "Descr2", Status.NEW, epic, 34L, "03.05.2024 12:00");
+            SubTask subTask3 = new SubTask("Name3", "Descr3", Status.IN_PROGRESS, epic, 10L, "23.02.2023 21:33");
+
+            taskManager.addEpic(epic);
+            taskManager.addSubTask(subTask);
+            taskManager.addSubTask(subTask2);
+            taskManager.addSubTask(subTask3);
+
+            taskManager.changeEpicDuration(epic);
+    }
 }
+
+

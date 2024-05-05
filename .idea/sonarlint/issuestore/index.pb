@@ -29,3 +29,5 @@ Y
 testFile.csv,0\3\037c2f7741451f5a235197ad9e908a555507e57e
 X
 (src/exceptions/ManagerSaveException.java,7\d\7d3210902b716832cae33861d0284eef901a4491
+I
+test/models/TaskTest.java,c\e\ce4ad3c477331e6943c47dceb23f4268f2b2b49d

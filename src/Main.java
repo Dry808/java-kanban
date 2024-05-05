@@ -14,7 +14,6 @@ public class Main {
 
 
 
-
                 // Создаём 2 задачи, эпик с 3 подзадачами и эпик без подзадач
         Task task = new Task("Задача 1", "Описание задачи 1", Status.NEW);
         Task task2 = new Task("Задача 2", "Описание задачи 2", Status.IN_PROGRESS);
