@@ -1,10 +1,7 @@
 
 import manager.Managers;
 import manager.TaskManager;
-import models.Epic;
-import models.Status;
-import models.SubTask;
-import models.Task;
+import models.*;
 
 
 public class Main {
@@ -52,7 +49,18 @@ public class Main {
 
 
 
-
+//        private String taskToString(Task task) {
+//            StringBuilder sb = new StringBuilder();
+//            sb.append(task.getId()).append(",");
+//            sb.append(task.getType()).append(",");
+//            sb.append(task.getTaskName()).append(",");
+//            sb.append(task.getStatus()).append(",");
+//            sb.append(task.getDescription()).append(",");
+//            if (task.getType().equals(Type.SUBTASK)) {
+//                sb.append(((SubTask) task).getEpic().getId());
+//            }
+//            return sb.toString();
+//        }
 
 
 

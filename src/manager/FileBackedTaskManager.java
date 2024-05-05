@@ -9,6 +9,8 @@ import java.nio.charset.StandardCharsets;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.Files;
+import java.time.Duration;
+import java.time.LocalDateTime;
 import java.util.Map;
 
 public class FileBackedTaskManager extends InMemoryTaskManager {
@@ -136,7 +138,7 @@ public class FileBackedTaskManager extends InMemoryTaskManager {
     }
 
     protected void save()  {
-        String header = "id,type,name,status,description,epic";
+        String header = "id,type,name,status,description,epic, startTime, duration";
         try (BufferedWriter bw = new BufferedWriter(new FileWriter(file, StandardCharsets.UTF_8))) {
             if (Files.size(path) == 0) {
                 bw.write(header);
@@ -175,7 +177,16 @@ public class FileBackedTaskManager extends InMemoryTaskManager {
         sb.append(task.getStatus()).append(",");
         sb.append(task.getDescription()).append(",");
         if (task.getType().equals(Type.SUBTASK)) {
-            sb.append(((SubTask) task).getEpic().getId());
+            sb.append(((SubTask) task).getEpic().getId()).append(",");
+        } else {
+            sb.append(",");
+        }
+        if (task.getStartTime() != null && task.getDuration() != null) {
+            sb.append(task.getStartTime()).append(",");
+            sb.append(task.getDuration().toMinutes()).append(",");
+        } else {
+            sb.append(",");
+            sb.append(",");
         }
         return sb.toString();
     }
@@ -189,14 +200,26 @@ public class FileBackedTaskManager extends InMemoryTaskManager {
         if (str[1].equals("TASK")) {
             Task task = new Task(str[2], str[4], Status.valueOf(str[3]));
             task.setId(Integer.parseInt(str[0]));
+            if (str.length > 5) {   // если больше 5 то значит есть startTime & Duration
+                task.setStartTime(LocalDateTime.parse(str[6]));
+                task.setDuration(Duration.parse("PT" + str[7] + "M"));
+            }
             return task;
         } else if (str[1].equals("EPIC")) {
             Task epic = new Epic(str[2], str[4], Status.valueOf(str[3]));
             epic.setId(Integer.parseInt(str[0]));
+            if (str.length > 5) {
+                epic.setStartTime(LocalDateTime.parse(str[6]));
+                epic.setDuration(Duration.parse("PT" + str[7] + "M"));
+            }
             return epic;
         } else if (str[1].equals("SUBTASK")) {
             Task subTask = new SubTask(str[2], str[4], Status.valueOf(str[3]), getEpic(Integer.parseInt(str[5])));
             subTask.setId(Integer.parseInt((str[0])));
+            if (str.length > 5) {   // если больше 5 то значит есть время стрта и продолжительность
+                subTask.setStartTime(LocalDateTime.parse(str[6]));
+                subTask.setDuration(Duration.parse("PT" + str[7] + "M"));
+            }
             return subTask;
         }
         throw new IllegalArgumentException("Не удалось создать задачу");
@@ -224,6 +247,8 @@ public class FileBackedTaskManager extends InMemoryTaskManager {
     private void idSettings(int id) {
             setIdSequence(id);
     }
+
+
 }
 
 

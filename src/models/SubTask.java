@@ -19,7 +19,7 @@ public class SubTask extends Task {
         }
     }
 
-    public SubTask(String taskName, String description, Status status, Epic epic, long duration, String startTime) {
+    public SubTask(String taskName, String description, Status status, Epic epic, String startTime, long duration) {
         super(taskName, description, status);
         type = SUBTASK;
         this.epic = epic;
@@ -32,7 +32,7 @@ public class SubTask extends Task {
     }
 
     public SubTask(String taskName, String description, Status status, Epic epic,
-                   Duration dur, LocalDateTime startTime) {
+                   LocalDateTime startTime, Duration dur) {
         super(taskName, description, status);
         type = SUBTASK;
         this.epic = epic;

@@ -24,7 +24,7 @@ public class Task {
         type = TASK;
     }
 
-    public Task(String taskName, String description, Status status, Duration dur, LocalDateTime startTime) {
+    public Task(String taskName, String description, Status status, LocalDateTime startTime, Duration dur) {
         this.taskName = taskName;
         this.description = description;
         this.status = status;
@@ -33,7 +33,7 @@ public class Task {
         this.startTime = startTime;
     }
 
-    public Task(String taskName, String description, Status status, long duration, String startTime) {
+    public Task(String taskName, String description, Status status, String startTime, long duration) {
         this.taskName = taskName;
         this.description = description;
         this.status = status;

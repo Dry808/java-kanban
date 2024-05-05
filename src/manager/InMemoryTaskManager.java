@@ -210,6 +210,8 @@ public class InMemoryTaskManager implements TaskManager  {
         // Дата конца - дата начала самого последнего сабтаска + его длительность
         // длительность - длительность всех сабтасков
 
+        if (epic.getSubTasks().isEmpty()) return; // проверка на наличия сабтасков у эпика
+
         List<SubTask> subTasksTimeStart = epic.getSubTasks().stream() // сортируем сабтаски эпика по времени начало
                 .filter(subTask -> subTask.getStartTime() != null)
                 .sorted(Comparator.comparing(SubTask::getStartTime))
@@ -233,19 +235,24 @@ public class InMemoryTaskManager implements TaskManager  {
 
 
     public static void main(String[] args) {
-            InMemoryTaskManager taskManager = new InMemoryTaskManager();
+            FileBackedTaskManager taskManager = new FileBackedTaskManager("file.csv");
 
             Epic epic = new Epic("NameEpic", "Opisanie", Status.NEW);
-            SubTask subTask = new SubTask("Name", "Descr", Status.NEW, epic, 20L, "05.05.2024 11:00");
-            SubTask subTask2 = new SubTask("Name2", "Descr2", Status.NEW, epic, 34L, "03.05.2024 12:00");
-            SubTask subTask3 = new SubTask("Name3", "Descr3", Status.IN_PROGRESS, epic, 10L, "23.02.2023 21:33");
+            Epic epic2 = new Epic("NameEpic", "Opisanie", Status.NEW);
+            SubTask subTask = new SubTask("Name", "Descr", Status.NEW, epic, "05.05.2024 11:00", 20);
+            SubTask subTask2 = new SubTask("Name2", "Descr2", Status.NEW, epic, "03.05.2024 12:00", 34);
+            SubTask subTask3 = new SubTask("Name3", "Descr3", Status.IN_PROGRESS, epic, "23.02.2023 21:33", 10);
+           // Task task = new Task("Задача 1", "task 1", Status.IN_PROGRESS, "21.02.2024 21:33", 70);
+       Task task = new Task("Задача 1", "task 1", Status.IN_PROGRESS);
 
             taskManager.addEpic(epic);
             taskManager.addSubTask(subTask);
             taskManager.addSubTask(subTask2);
             taskManager.addSubTask(subTask3);
+            taskManager.addTask(task);
+            taskManager.addEpic(epic2);
 
-            taskManager.changeEpicDuration(epic);
+         FileBackedTaskManager taskManager1 = FileBackedTaskManager.loadFromFile("file.csv");
     }
 }
 
