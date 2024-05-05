@@ -11,18 +11,18 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
 
-public class InMemoryTaskManagerTest {
+class InMemoryTaskManagerTest {
     TaskManager taskManager;
 
     @BeforeEach
     public void beforeEach() {
-        taskManager = Managers.getDefault();
+        taskManager = Managers.getInMemoryTaskManager();
 
     }
 
 
     @Test
-    public void shouldSaveAllTypesOfTasksInTaskManager() {
+    void shouldSaveAllTypesOfTasksInTaskManager() {
         Task task = new Task("Задача", "Описание", Status.NEW);
         Epic epic = new Epic("Эпик", "Описание эпика", Status.NEW);
         SubTask subTask = new SubTask("Подзадача", "Описание", Status.NEW, epic);
@@ -37,7 +37,7 @@ public class InMemoryTaskManagerTest {
     }
 
     @Test
-    public void shouldFindTasksById() {
+    void shouldFindTasksById() {
         Task task = new Task("Задача", "Описание", Status.NEW);
         Epic epic = new Epic("Эпик", "Описание эпика", Status.NEW);
         SubTask subTask = new SubTask("Подзадача", "Описание", Status.NEW, epic);
@@ -56,7 +56,7 @@ public class InMemoryTaskManagerTest {
     }
 
     @Test
-    public void tasksWithSetIdAndGeneratedIdNotConflictInManager() {
+    void tasksWithSetIdAndGeneratedIdNotConflictInManager() {
 
         Task task1 = new Task("Задача 1", "Описание", Status.NEW);
         Task task2 = new Task("Задача 2", "Описание 2", Status.IN_PROGRESS);
@@ -71,7 +71,7 @@ public class InMemoryTaskManagerTest {
     }
 
     @Test
-    public void tasksFieldsShouldNotChangeAfterAddToManager() {
+    void tasksFieldsShouldNotChangeAfterAddToManager() {
         Task task = new Task("Задача", "Описание", Status.NEW);
 
         taskManager.addTask(task);
@@ -90,7 +90,7 @@ public class InMemoryTaskManagerTest {
     }
 
     @Test
-    public void tasksAddedToHistorySavePreviousVersion() {
+    void tasksAddedToHistorySavePreviousVersion() {
         Task task = new Task("Задача 1", "Описание 1", Status.NEW); // id 0
         taskManager.addTask(task);
         taskManager.getTask(0);
@@ -106,7 +106,7 @@ public class InMemoryTaskManagerTest {
     }
 
     @Test
-    public void shouldDeleteSubTasksIfDeleteHisEpic() {
+    void shouldDeleteSubTasksIfDeleteHisEpic() {
         Epic epic = new Epic("Эпик", "Описание эпика", Status.NEW);
         SubTask subTask = new SubTask("Сабтаск", "Сабтаск эпика", Status.NEW, epic);
         SubTask subTask2 = new SubTask("Сабтаск 2", "Второй сабтаск эпика ", Status.NEW, epic);

@@ -7,7 +7,7 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-public class InMemoryHistoryManagerTest {
+class InMemoryHistoryManagerTest {
     HistoryManager historyManager;
     Task task;
     Task task2;
@@ -22,7 +22,7 @@ public class InMemoryHistoryManagerTest {
     }
 
     @Test
-    public void historyManagerDontSaveDuplicate() {
+    void historyManagerDontSaveDuplicate() {
 
         historyManager.add(task);
         historyManager.add(task2);
@@ -36,7 +36,7 @@ public class InMemoryHistoryManagerTest {
 
 
     @Test
-    public void removeFromHistory() {
+    void removeFromHistory() {
 
         historyManager.add(task);
         historyManager.add(task2);

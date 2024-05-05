@@ -1,11 +1,14 @@
 package models;
 
+import static models.Type.SUBTASK;
+
 public class SubTask extends Task {
     private Epic epic;
 
 
     public SubTask(String taskName, String description, Status status, Epic epic) {
         super(taskName, description, status);
+        type = SUBTASK;
         this.epic = epic;
         if (epic != null) {
             epic.getSubTasks().add(this);

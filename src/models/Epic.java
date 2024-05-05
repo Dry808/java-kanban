@@ -2,12 +2,15 @@ package models;
 
 import java.util.ArrayList;
 
+import static models.Type.EPIC;
+
 public class Epic extends Task {
     private ArrayList<SubTask> subTasks;
 
 
     public Epic(String taskName, String description, Status status) {
         super(taskName, description, status);
+        type = EPIC;
         this.subTasks = new ArrayList<SubTask>();
     }
 

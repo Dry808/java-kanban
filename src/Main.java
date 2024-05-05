@@ -1,3 +1,4 @@
+
 import manager.Managers;
 import manager.TaskManager;
 import models.Epic;
@@ -5,12 +6,16 @@ import models.Status;
 import models.SubTask;
 import models.Task;
 
+
 public class Main {
 
     public static void main(String[] args) {
-        TaskManager taskManager = Managers.getDefault();
+        TaskManager taskManager = Managers.getDefault("file.csv");
 
-        // Создаём 2 задачи, эпик с 3 подзадачами и эпик без подзадач
+
+
+
+                // Создаём 2 задачи, эпик с 3 подзадачами и эпик без подзадач
         Task task = new Task("Задача 1", "Описание задачи 1", Status.NEW);
         Task task2 = new Task("Задача 2", "Описание задачи 2", Status.IN_PROGRESS);
         taskManager.addTask(task);
@@ -21,6 +26,7 @@ public class Main {
         SubTask subTask = new SubTask("Подзадача 1", "Описание подзадачи 1", Status.NEW, epic);
         SubTask subTask2 = new SubTask("Подзадача 2", "Описание подзадачи 2", Status.NEW, epic);
         SubTask subTask3 = new SubTask("Подзадача 3", "Описание подзадачи 3", Status.NEW, epic);
+
         taskManager.addEpic(epic);
         taskManager.addSubTask(subTask);
         taskManager.addSubTask(subTask2);
