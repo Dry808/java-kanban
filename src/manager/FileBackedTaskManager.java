@@ -105,6 +105,8 @@ public class FileBackedTaskManager extends InMemoryTaskManager {
         return epic;
     }
 
+
+
     // загрузка тасок и истории из файла
     public static FileBackedTaskManager loadFromFile(String file) {
         FileBackedTaskManager backedTaskManager = new FileBackedTaskManager(file);
@@ -120,6 +122,7 @@ public class FileBackedTaskManager extends InMemoryTaskManager {
                 if (backedTaskManager.taskFromString(line).getClass().equals(Task.class)) {
                     Task task = backedTaskManager.taskFromString(line);
                     backedTaskManager.tasks.put(task.getId(),task);
+                    backedTaskManager.addPrioritizedTasks(task);
 
                 } else if (backedTaskManager.taskFromString(line).getClass().equals(Epic.class)) {
                     Epic epic = (Epic) backedTaskManager.taskFromString(line);
@@ -128,6 +131,7 @@ public class FileBackedTaskManager extends InMemoryTaskManager {
                 } else if (backedTaskManager.taskFromString(line).getClass().equals(SubTask.class)) {
                     SubTask subTask = (SubTask) backedTaskManager.taskFromString(line);
                     backedTaskManager.subTasks.put(subTask.getId(),subTask);
+                    backedTaskManager.addPrioritizedTasks(subTask);
                 }
             }
         } catch (Exception e) {
@@ -216,7 +220,7 @@ public class FileBackedTaskManager extends InMemoryTaskManager {
         } else if (str[1].equals("SUBTASK")) {
             Task subTask = new SubTask(str[2], str[4], Status.valueOf(str[3]), getEpic(Integer.parseInt(str[5])));
             subTask.setId(Integer.parseInt((str[0])));
-            if (str.length > 5) {   // если больше 5 то значит есть время стрта и продолжительность
+            if (str.length > 5) {
                 subTask.setStartTime(LocalDateTime.parse(str[6]));
                 subTask.setDuration(Duration.parse("PT" + str[7] + "M"));
             }

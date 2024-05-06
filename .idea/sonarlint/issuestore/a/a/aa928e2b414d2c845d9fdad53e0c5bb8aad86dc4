@@ -1,6 +1,9 @@
 
+ß
+java:S11921"–Define a constant instead of duplicating this literal "Ğ—Ğ°Ğ´Ğ°Ñ‡Ğ° Ğ¿ĞµÑ€ĞµÑĞµĞºĞ°ĞµÑ‚ÑÑ Ğ¿Ğ¾ Ğ²Ñ€ĞµĞ¼ĞµĞ½Ğ¸ Ñ ÑÑƒÑ‰ĞµÑÑ‚Ğ²ÑƒÑÑ‰ĞµĞ¹" 3 times.(ÆÆúŸşÿÿÿÿ8¹áòöô1J$5b310a22-d7e8-44b7-8a60-684abe04be01
 ‰
-java:S1854ÿ"@Remove this useless assignment to local variable "taskManager1".(°­€úşÿÿÿÿ8»˜çÒô1J$c771ed30-f409-4e58-8cd6-73881fc6f0d9
-„	java:S125õ"<This block of commented-out lines of code should be removed.(Ó™°Ôıÿÿÿÿ8½˜çÒô1J$4ca66a1e-f5a8-4af5-8cd2-3e340f4b16b5
+java:S1854¹"@Remove this useless assignment to local variable "taskManager1".(°­€úşÿÿÿÿ8²†êöô1J$53110e8b-61f8-40a0-a029-31990c706b64
+„	java:S125«"<This block of commented-out lines of code should be removed.(Ó™°Ôıÿÿÿÿ8³†êöô1J$a25edc02-8ffc-4c24-8059-5e0b31fa2f98
+	java:S125·"<This block of commented-out lines of code should be removed.(—¸ƒÈ8´†êöô1J$83250bba-23bf-475a-802d-3b847b59f927
 z
-java:S1481ÿ"1Remove this unused "taskManager1" local variable.(°­€úşÿÿÿÿ8¾˜çÒô1J$4b04af6a-7a9f-4d03-aae0-8c889e86cadf
+java:S1481¹"1Remove this unused "taskManager1" local variable.(°­€úşÿÿÿÿ8µ†êöô1J$38337f08-8868-4815-bfcc-3d9544fcb9e6
