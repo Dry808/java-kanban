@@ -1,6 +1,6 @@
 package models;
 
-import java.time.Duration;
+
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 
@@ -41,7 +41,7 @@ public class Epic extends Task {
     }
 
     @Override
-    public LocalDateTime getEndTime(){
+    public LocalDateTime getEndTime() {
         return endTime;
     }
 

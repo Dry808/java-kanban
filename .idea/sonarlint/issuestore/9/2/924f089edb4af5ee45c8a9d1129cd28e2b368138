@@ -1,6 +1,9 @@
 
-7
-java:S1220""Move this file to a named package.8óô§Ğô1
-X	java:S1254"<This block of commented-out lines of code should be removed.(Éşæ8ÿô§Ğô1
-V
-java:S4838O"4Change "Task" to the type handled by the Collection.(ìŒ¹Ïûÿÿÿÿ8õ§Ğô1
+]
+java:S1220""Move this file to a named package.8ò­Ÿõ1J$2712fc63-5a1b-443d-9f42-ed6e740ae7f3
+ˆ
+java:S1854"@Remove this useless assignment to local variable "taskManager1".(°­€úşÿÿÿÿ8ú­Ÿõ1J$198d6616-7632-40a8-af3e-48ebd030b997
+ƒ	java:S125"<This block of commented-out lines of code should be removed.(Ó™°Ôıÿÿÿÿ8ş­Ÿõ1J$b79a9530-321c-4d34-9d88-0cc5d32d8518
+~	java:S125"<This block of commented-out lines of code should be removed.(—¸ƒÈ8€®Ÿõ1J$2fad1b6e-1f67-45e4-88ac-7e633bae4be8
+y
+java:S1481"1Remove this unused "taskManager1" local variable.(°­€úşÿÿÿÿ8‚®Ÿõ1J$9fb97df5-18d0-44ac-a9c6-cf110e6636c0

@@ -1,78 +1,33 @@
 
-import manager.Managers;
-import manager.TaskManager;
+import manager.FileBackedTaskManager;
+
 import models.*;
 
 
 public class Main {
 
     public static void main(String[] args) {
-        TaskManager taskManager = Managers.getDefault("file.csv");
+            FileBackedTaskManager taskManager = new FileBackedTaskManager("file.csv");
 
+            Epic epic = new Epic("NameEpic", "Opisanie", Status.NEW);
+            Epic epic2 = new Epic("NameEpic", "Opisanie", Status.NEW);
+            SubTask subTask = new SubTask("Name", "Descr", Status.NEW, epic, "05.05.2024 11:00", 20);
+            SubTask subTask2 = new SubTask("Name2", "Descr2", Status.NEW, epic, "03.05.2024 12:00", 34);
+            SubTask subTask3 = new SubTask("Name3", "Descr3", Status.IN_PROGRESS, epic, "23.02.2023 21:33", 10);
+            //Task task = new Task("Задача 1", "task 1", Status.IN_PROGRESS, "21.02.2024 21:33", 70);
+            Task task = new Task("Задача 1", "task 1", Status.IN_PROGRESS);
+            Task task2 = new Task("Задача 1", "task 1", Status.IN_PROGRESS, "24.02.2023 21:40", 10);
 
+            taskManager.addEpic(epic);
+            taskManager.addSubTask(subTask);
+            taskManager.addSubTask(subTask2);
+            taskManager.addSubTask(subTask3);
+            taskManager.addTask(task);
+            taskManager.addEpic(epic2);
+            taskManager.deleteSubTask(1);
+            taskManager.addTask(task2);
+            //taskManager.deleteTask(4);
 
-                // Создаём 2 задачи, эпик с 3 подзадачами и эпик без подзадач
-        Task task = new Task("Задача 1", "Описание задачи 1", Status.NEW);
-        Task task2 = new Task("Задача 2", "Описание задачи 2", Status.IN_PROGRESS);
-        taskManager.addTask(task);
-        taskManager.addTask(task2);
-
-
-        Epic epic = new Epic("Эпик 1", "Описание эпика 1", Status.NEW);
-        SubTask subTask = new SubTask("Подзадача 1", "Описание подзадачи 1", Status.NEW, epic);
-        SubTask subTask2 = new SubTask("Подзадача 2", "Описание подзадачи 2", Status.NEW, epic);
-        SubTask subTask3 = new SubTask("Подзадача 3", "Описание подзадачи 3", Status.NEW, epic);
-
-        taskManager.addEpic(epic);
-        taskManager.addSubTask(subTask);
-        taskManager.addSubTask(subTask2);
-        taskManager.addSubTask(subTask3);
-
-
-        Epic epic2 = new Epic("Эпик 2", "Описание эпика 2", Status.NEW);
-        taskManager.addEpic(epic2);
-
-        // Запрашиваем задачи
-        taskManager.getTask(1);
-        taskManager.getEpic(2);
-        taskManager.getTask(0);
-        taskManager.getEpic(6);
-        taskManager.getTask(1);
-        taskManager.getSubTask(4);
-        taskManager.getTask(1);
-
-
-
-        taskManager.getHistory();
-        taskManager.deleteEpic(2);
-        taskManager.getHistory();
-
-
-        printAllTasks(taskManager);
-
-    }
-
-    private static void printAllTasks(TaskManager manager) {
-        System.out.println("Задачи:");
-        for (Task task : manager.getTasks()) {
-            System.out.println(task);
-        }
-        System.out.println("Эпики:");
-        for (Task epic : manager.getEpics()) {
-            System.out.println(epic);
-
-            for (Task task : manager.getEpicSubTasks((Epic) epic)) {
-                System.out.println("--> " + task);
-            }
-        }
-        System.out.println("Подзадачи:");
-        for (Task subtask : manager.getSubTasks()) {
-            System.out.println(subtask);
-        }
-
-        System.out.println("История:");
-        for (Task task : manager.getHistory()) {
-            System.out.println(task);
-        }
+            FileBackedTaskManager taskManager1 = FileBackedTaskManager.loadFromFile("file.csv");
     }
 }
