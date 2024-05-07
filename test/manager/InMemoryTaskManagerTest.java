@@ -5,14 +5,22 @@ import models.Epic;
 import models.Status;
 import models.SubTask;
 import models.Task;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 
-class InMemoryTaskManagerTest {
+class InMemoryTaskManagerTest extends TaskManagerTest<InMemoryTaskManager> {
     TaskManager taskManager;
+
+
+    @Override
+    protected InMemoryTaskManager createTaskManager() {
+        return new InMemoryTaskManager();
+    }
+
 
     @BeforeEach
     public void beforeEach() {
@@ -118,7 +126,90 @@ class InMemoryTaskManagerTest {
 
         assertFalse(taskManager.getSubTasks().contains(subTask));
         assertFalse(taskManager.getSubTasks().contains(subTask2));
+    }
 
+    // ТЕСТЫ ТЗ-8
+
+    @Test
+    void epicStatusCalculation_new() {
+        //все подзадачи со статусом NEW
+        Epic epic = new Epic("epic", "Epic", Status.IN_PROGRESS);
+        SubTask subTask = new SubTask("SubTask1", "Descr", Status.NEW, epic);
+        SubTask subTask2 = new SubTask("SubTask2", "Descr", Status.NEW, epic);
+
+        taskManager.addEpic(epic);
+        taskManager.addSubTask(subTask);
+        taskManager.addSubTask(subTask2);
+
+        assertEquals(Status.NEW, taskManager.getEpic(0).getStatus(), "Статус не New");
+    }
+
+    @Test
+    void epicStatusCalculation_done() {
+        //все подзадачи со статусом done
+        Epic epic = new Epic("epic", "Epic", Status.IN_PROGRESS);
+        SubTask subTask = new SubTask("SubTask1", "Descr", Status.DONE, epic);
+        SubTask subTask2 = new SubTask("SubTask2", "Descr", Status.DONE, epic);
+
+        taskManager.addEpic(epic);
+        taskManager.addSubTask(subTask);
+        taskManager.addSubTask(subTask2);
+
+        assertEquals(Status.DONE, taskManager.getEpic(0).getStatus(), "Статус не Done");
+    }
+
+    @Test
+    void epicStatusCalculation_newAndDone() {
+        //все подзадачи со статусом new & done
+        Epic epic = new Epic("epic", "Epic", Status.DONE);
+        SubTask subTask = new SubTask("SubTask1", "Descr", Status.NEW, epic);
+        SubTask subTask2 = new SubTask("SubTask2", "Descr", Status.DONE, epic);
+
+        taskManager.addEpic(epic);
+        taskManager.addSubTask(subTask);
+        taskManager.addSubTask(subTask2);
+
+        assertEquals(Status.IN_PROGRESS, taskManager.getEpic(0).getStatus(), "Статус не IN PROGRESS");
+    }
+
+    @Test
+    void epicStatusCalculation_inProgress() {
+        //все подзадачи со статусом IN PROGRESS
+        Epic epic = new Epic("epic", "Epic", Status.NEW);
+        SubTask subTask = new SubTask("SubTask1", "Descr", Status.IN_PROGRESS, epic);
+        SubTask subTask2 = new SubTask("SubTask2", "Descr", Status.IN_PROGRESS, epic);
+
+        taskManager.addEpic(epic);
+        taskManager.addSubTask(subTask);
+        taskManager.addSubTask(subTask2);
+
+        assertEquals(Status.IN_PROGRESS, taskManager.getEpic(0).getStatus(), "Статус не IN PROGRESS");
+    }
+
+    @Test
+    void correctIntersectionCalculation() {
+        // не пересекаются
+        Task task = new Task("Задача 1", "Описание 1", Status.NEW,
+                "01.01.2024 12:00", 20);
+
+        Task task2 = new Task("Задача 1", "task 1", Status.IN_PROGRESS,
+                "02.01.2024 12:00", 10);
+
+        taskManager.addTask(task);
+        taskManager.addTask(task2);
+
+        assertFalse(taskManager.getTasks().isEmpty());
+
+        //пересекаются
+        Task task3 = new Task("Задача 1", "Описание 1", Status.NEW,
+                "12.12.2023 12:12", 20);
+
+        Task task4 = new Task("Задача 1", "task 1", Status.IN_PROGRESS,
+                "12.12.2023 12:10", 10);
+
+        taskManager.addTask(task3);
+
+        assertThrows(IllegalArgumentException.class, () -> taskManager.addTask(task4));
 
 
     }

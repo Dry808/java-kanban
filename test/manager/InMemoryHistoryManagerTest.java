@@ -37,12 +37,24 @@ class InMemoryHistoryManagerTest {
 
     @Test
     void removeFromHistory() {
-
+        Task taskNew = new Task("Задача ", "Описание задачи ", Status.NEW);
+        Task taskNew2 = new Task("Задача ", "Описание задачи ", Status.NEW);
         historyManager.add(task);
+        historyManager.add(taskNew);
         historyManager.add(task2);
-        historyManager.remove(2);
+        historyManager.add(taskNew2);
 
-        Assertions.assertEquals(historyManager.getHistory().get(0), task);
+        historyManager.remove(task.getId());
+        historyManager.remove(task2.getId());
+        historyManager.remove(taskNew2.getId());
+
+        Assertions.assertEquals(1, historyManager.getHistory().size());
+    }
+
+    @Test
+    void addToHistory() {
+        historyManager.add(task);
+        Assertions.assertFalse(historyManager.getHistory().isEmpty());
     }
 }
 

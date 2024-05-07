@@ -224,9 +224,10 @@ public class InMemoryTaskManager implements TaskManager  {
             }
             if (counterDone == epic.getSubTasks().size()) {
                 epic.setStatus(Status.DONE);
-            }
-            if (counterNew == epic.getSubTasks().size()) {
+            } else if (counterNew == epic.getSubTasks().size()) {
                 epic.setStatus(Status.NEW);
+            } else {
+                epic.setStatus(Status.IN_PROGRESS);
             }
         }
     }
@@ -247,6 +248,7 @@ public class InMemoryTaskManager implements TaskManager  {
                 .filter(subTask -> subTask.getStartTime() != null)
                 .sorted(Comparator.comparing(SubTask::getStartTime))
                 .toList();
+        if (subTasksTimeStart.isEmpty()) return;
 
         Duration allSubTasksDuration = epic.getSubTasks().stream() // считаем общую продолжительность сабтасков
                 .filter(subTask -> subTask.getDuration() != null)

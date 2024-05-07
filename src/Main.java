@@ -48,24 +48,6 @@ public class Main {
         taskManager.getHistory();
 
 
-
-//        private String taskToString(Task task) {
-//            StringBuilder sb = new StringBuilder();
-//            sb.append(task.getId()).append(",");
-//            sb.append(task.getType()).append(",");
-//            sb.append(task.getTaskName()).append(",");
-//            sb.append(task.getStatus()).append(",");
-//            sb.append(task.getDescription()).append(",");
-//            if (task.getType().equals(Type.SUBTASK)) {
-//                sb.append(((SubTask) task).getEpic().getId());
-//            }
-//            return sb.toString();
-//        }
-
-
-
-
-
         printAllTasks(taskManager);
 
     }

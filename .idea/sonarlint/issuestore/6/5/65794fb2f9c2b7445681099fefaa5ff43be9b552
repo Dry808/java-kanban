@@ -1,11 +1,11 @@
 
 ¡
-java:S2293"YReplace the type specification in this constructor call with the diamond operator ("<>").(Ì·ï©ùÿÿÿÿ8§¤—Ìô1J$9a72c988-6d74-4e5e-8d96-8db536c4887e
+java:S2293"YReplace the type specification in this constructor call with the diamond operator ("<>").(Ì·ï©ùÿÿÿÿ8§¤—Ìô1J$717605a7-a875-406f-929d-c8915dcb2b3b
 ¸
-java:S1319"pThe return type of this method should be an interface such as "List" rather than the implementation "ArrayList".(‹ËÑıÿÿÿÿ8©¤—Ìô1J$8159889b-5ca0-41df-bd15-04d36cebc5e6
+java:S1319"pThe return type of this method should be an interface such as "List" rather than the implementation "ArrayList".(‹ËÑıÿÿÿÿ8©¤—Ìô1J$9b4a13af-70c9-406c-9ce6-65fe527e464f
 °
-java:S1319#"hThe type of "subTasks" should be an interface such as "List" rather than the implementation "ArrayList".(±ÍÁ£üÿÿÿÿ8©¤—Ìô1J$5e156cc3-42e7-470c-a4a1-21307b346777
+java:S1319#"hThe type of "subTasks" should be an interface such as "List" rather than the implementation "ArrayList".(±ÍÁ£üÿÿÿÿ8©¤—Ìô1J$c2e8e7e2-0294-4276-bc85-faba2c494b07
 n
-java:S2160	"+Override the "equals" method in this class.(‡¢ÉÎ8¯¤—Ìô1J$1a9d8b8f-d053-4076-8cee-52904f5e2bf0
+java:S2160	"+Override the "equals" method in this class.(‡¢ÉÎ8¯¤—Ìô1J$38d7e5d8-2a90-45ec-a8f1-c8fa2d505af3
 w
-java:S1128"/Remove this unused import 'java.time.Duration'.(ëá¯‰üÿÿÿÿ8µ¤—Ìô1J$5f9fea65-25df-4e4c-b09a-887cb9ef0d44
+java:S1128"/Remove this unused import 'java.time.Duration'.(ëá¯‰üÿÿÿÿ8µ¤—Ìô1J$88a06610-ddab-4db4-990a-3889435ab153

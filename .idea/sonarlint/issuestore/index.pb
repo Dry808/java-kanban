@@ -31,3 +31,11 @@ X
 (src/exceptions/ManagerSaveException.java,7\d\7d3210902b716832cae33861d0284eef901a4491
 I
 test/models/TaskTest.java,c\e\ce4ad3c477331e6943c47dceb23f4268f2b2b49d
+I
+test/models/EpicTest.java,7\6\76d2a5caf4cdb89aa86873e810414d9738ca45fd
+Q
+!test/manager/TaskManagerTest.java,6\5\65acdcd5f19ef3da98de3f6764a48be93a973c34
+L
+src/manager/TaskManager.java,f\a\faa70362252a04b2ad35762a07b341f056f03658
+O
+src/manager/HistoryManager.java,f\0\f0c741df96791e27097b39b0bc018b06cb88f0a9
