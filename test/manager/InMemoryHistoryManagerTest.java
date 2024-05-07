@@ -38,7 +38,10 @@ class InMemoryHistoryManagerTest {
     @Test
     void removeFromHistory() {
         Task taskNew = new Task("Задача ", "Описание задачи ", Status.NEW);
+        taskNew.setId(2);
         Task taskNew2 = new Task("Задача ", "Описание задачи ", Status.NEW);
+        taskNew.setId(3);
+
         historyManager.add(task);
         historyManager.add(taskNew);
         historyManager.add(task2);
