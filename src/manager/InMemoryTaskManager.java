@@ -14,11 +14,7 @@ public class InMemoryTaskManager implements TaskManager  {
     protected Map<Integer, Epic> epics = new HashMap<>();
     protected HistoryManager historyManager = Managers.getDefaultHistory();
     protected TreeSet<Task> prioritizedTasks = new TreeSet<>(getTaskComparator());
-
     private int idSequence = 0;
-
-
-
 
     // Методы Task
     @Override
@@ -28,7 +24,9 @@ public class InMemoryTaskManager implements TaskManager  {
 
     @Override
     public void deleteAllTasks() {
-        getTasks().stream().filter(task -> task.getStartTime() != null).forEach(prioritizedTasks::remove);
+        getTasks().stream()
+                .filter(task -> task.getStartTime() != null)
+                .forEach(prioritizedTasks::remove);
         tasks.clear();
     }
 
@@ -36,7 +34,6 @@ public class InMemoryTaskManager implements TaskManager  {
     public Task getTask(int id) {
         historyManager.add(tasks.get(id));
         return tasks.get(id);
-
     }
 
 
@@ -45,7 +42,8 @@ public class InMemoryTaskManager implements TaskManager  {
         newTask.setId(generateId());
 
         // проверяем на пересечения
-        if (newTask.getStartTime() != null && getPrioritizedTasks().stream().anyMatch(task -> isIntersect(task, newTask))) {
+        if (newTask.getStartTime() != null && getPrioritizedTasks().stream()
+                .anyMatch(task -> isIntersect(task, newTask))) {
             throw new IllegalArgumentException("Задача пересекается по времени с существующей");
         }
         tasks.put(newTask.getId(), newTask);
@@ -59,7 +57,8 @@ public class InMemoryTaskManager implements TaskManager  {
         Task oldTask = tasks.get(updateTask.getId());
         prioritizedTasks.remove(oldTask);
 
-        if (updateTask.getStartTime() != null && getPrioritizedTasks().stream().anyMatch(task -> isIntersect(task, updateTask))) {
+        if (updateTask.getStartTime() != null && getPrioritizedTasks().stream()
+                .anyMatch(task -> isIntersect(task, updateTask))) {
             throw new IllegalArgumentException("Задача пересекается по времени с существующей");
         }
 
@@ -86,7 +85,9 @@ public class InMemoryTaskManager implements TaskManager  {
     @Override
     public Map<Integer, SubTask> deleteAllSubTasks() {
         // удаляем из списка приоритетов
-        getSubTasks().stream().filter(subTask -> subTask.getStartTime() != null).forEach(prioritizedTasks::remove);
+        getSubTasks().stream()
+                .filter(subTask -> subTask.getStartTime() != null)
+                .forEach(prioritizedTasks::remove);
 
         for (Epic epic : epics.values()) {
             getEpicSubTasks(epic).clear();
@@ -107,9 +108,11 @@ public class InMemoryTaskManager implements TaskManager  {
     @Override
     public SubTask addSubTask(SubTask newSubTask) {
         newSubTask.setId(generateId());
+        newSubTask.getEpic().getSubTasksId().add(newSubTask.getId()); // добавили id subTask в эпик
 
         // проверка на пересечения
-        if (newSubTask.getStartTime() != null && getPrioritizedTasks().stream().anyMatch(task -> isIntersect(task, newSubTask))) {
+        if (newSubTask.getStartTime() != null && getPrioritizedTasks().stream()
+                .anyMatch(task -> isIntersect(task, newSubTask))) {
             throw new IllegalArgumentException("Задача пересекается по времени с существующей");
         }
         subTasks.put(newSubTask.getId(), newSubTask);

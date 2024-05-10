@@ -14,18 +14,12 @@ public class SubTask extends Task {
         super(taskName, description, status);
         type = SUBTASK;
         this.epic = epic;
-        if (epic != null) {
-            epic.getSubTasksId().add(this.getId());
-        }
     }
 
     public SubTask(String taskName, String description, Status status, Epic epic, String startTime, long duration) {
         super(taskName, description, status);
         type = SUBTASK;
         this.epic = epic;
-        if (epic != null) {
-            epic.getSubTasksId().add(this.getId());
-        }
         this.duration = Duration.ofMinutes(duration);
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy HH:mm");
         this.startTime = LocalDateTime.parse(startTime, formatter);
@@ -36,9 +30,6 @@ public class SubTask extends Task {
         super(taskName, description, status);
         type = SUBTASK;
         this.epic = epic;
-        if (epic != null) {
-            epic.getSubTasksId().add(this.getId());
-        }
         this.duration = dur;
         this.startTime = startTime;
     }

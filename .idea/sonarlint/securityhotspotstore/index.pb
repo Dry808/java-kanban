@@ -39,3 +39,5 @@ L
 src/manager/TaskManager.java,f\a\faa70362252a04b2ad35762a07b341f056f03658
 O
 src/manager/HistoryManager.java,f\0\f0c741df96791e27097b39b0bc018b06cb88f0a9
+L
+test/models/SubTaskTest.java,1\7\17f7f097bbae50d2ac9fd262734be13bcc835c56

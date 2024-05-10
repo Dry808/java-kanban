@@ -23,11 +23,15 @@ public class Main {
             taskManager.addSubTask(subTask2);
             taskManager.addSubTask(subTask3);
             taskManager.addTask(task);
-            taskManager.addEpic(epic2);
-            taskManager.deleteSubTask(1);
+           // taskManager.deleteSubTask(1);
             taskManager.addTask(task2);
             //taskManager.deleteTask(4);
+            taskManager.getSubTask(subTask.getId());
+            taskManager.getTask(task.getId());
+            taskManager.addEpic(epic2);
 
-            FileBackedTaskManager taskManager1 = FileBackedTaskManager.loadFromFile("file.csv");
+
+
+            //  FileBackedTaskManager taskManager1 = FileBackedTaskManager.loadFromFile("file.csv");
     }
 }
