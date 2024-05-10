@@ -26,8 +26,6 @@ public class Main {
            // taskManager.deleteSubTask(1);
             taskManager.addTask(task2);
             //taskManager.deleteTask(4);
-            taskManager.getSubTask(subTask.getId());
-            taskManager.getTask(task.getId());
             taskManager.addEpic(epic2);
 
 

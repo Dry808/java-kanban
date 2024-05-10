@@ -6,5 +6,3 @@ id,type,name,status,description,epic, startTime, duration
 1,SUBTASK,Name,NEW,Descr,0,2024-05-05T11:00,20,
 2,SUBTASK,Name2,NEW,Descr2,0,2024-05-03T12:00,34,
 3,SUBTASK,Name3,IN_PROGRESS,Descr3,0,2023-02-23T21:33,10,
-
-1 4 

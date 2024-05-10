@@ -215,7 +215,8 @@ public class InMemoryTaskManager implements TaskManager  {
         int counterNew = 0; // счётчик для подзадач со статусом New
         if (epic.getSubTasksId() == null) {
             epic.setStatus(Status.NEW);
-        } else {
+            return;
+        }
             for (Integer sub : epic.getSubTasksId()) {
                 SubTask subTask = subTasks.get(sub);
                 if (subTask != null) {
@@ -235,7 +236,6 @@ public class InMemoryTaskManager implements TaskManager  {
             } else {
                 epic.setStatus(Status.IN_PROGRESS);
             }
-        }
     }
 
     // метод для генерации ID
