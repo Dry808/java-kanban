@@ -1,3 +1,5 @@
 
 �
-java:S11921"�Define a constant instead of duplicating this literal "Задача пересекается по времени с существующей" 3 times.(���������8Л���1J$b4cbdd2d-edd3-4034-9381-a3a0e347e0c5
+java:S11921"�Define a constant instead of duplicating this literal "Задача пересекается по времени с существующей" 3 times.(���������8�����1J$3d2b10b5-f0d2-42b4-870d-ca290f4d23b8
+�
+java:S3776�"RRefactor this method to reduce its Cognitive Complexity from 17 to the 15 allowed.(����8װ���1J$5fc91afa-7514-4ac2-a9a6-b435b2d22793

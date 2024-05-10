@@ -17,7 +17,7 @@ class FileBackedTaskManagerTest extends TaskManagerTest<FileBackedTaskManager> {
 
     @Override
     protected FileBackedTaskManager createTaskManager() {
-        return new FileBackedTaskManager("testFile");
+        return new FileBackedTaskManager("testFile.csv");
     }
 
     @BeforeEach

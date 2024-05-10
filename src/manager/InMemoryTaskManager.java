@@ -134,7 +134,7 @@ public class InMemoryTaskManager implements TaskManager  {
     public SubTask deleteSubTask(int id) {
         SubTask subTask = subTasks.remove(id);
         prioritizedTasks.remove(subTask);
-        subTask.getEpic().getSubTasks().remove(subTask);
+        subTask.getEpic().getSubTasksId().remove(subTask.getId());
         changeEpicStatus(subTask.getEpic());
         changeEpicDuration(subTask.getEpic());
         historyManager.remove(id);
@@ -179,13 +179,13 @@ public class InMemoryTaskManager implements TaskManager  {
     @Override
     public Epic deleteEpic(int id) {
         Epic epic = epics.get(id);
-        List<SubTask> subTasksToDelete = new ArrayList<>();
+        List<Integer> subTasksToDelete = new ArrayList<>();
 
         //удаляем сабтаски удалённого эпика
-        subTasksToDelete.addAll(epic.getSubTasks());
-        for (SubTask sb : subTasksToDelete) {
-            historyManager.remove(sb.getId());
-            subTasks.remove(sb.getId());
+        subTasksToDelete.addAll(epic.getSubTasksId());
+        for (Integer sb : subTasksToDelete) {
+            historyManager.remove(sb);
+            subTasks.remove(sb);
         }
 
         epics.remove(epic.getId());
@@ -194,8 +194,8 @@ public class InMemoryTaskManager implements TaskManager  {
     }
 
     @Override
-    public List<SubTask> getEpicSubTasks(Epic epic) {
-        return epic.getSubTasks();
+    public List<Integer> getEpicSubTasks(Epic epic) {
+        return epic.getSubTasksId();
     }
 
     @Override
@@ -210,21 +210,24 @@ public class InMemoryTaskManager implements TaskManager  {
     private void changeEpicStatus(Epic epic) {
         int counterDone = 0; // счётчик для подзачад со статусом Done
         int counterNew = 0; // счётчик для подзадач со статусом New
-        if (epic.getSubTasks() == null) {
+        if (epic.getSubTasksId() == null) {
             epic.setStatus(Status.NEW);
         } else {
-            for (SubTask sub : epic.getSubTasks()) {
-                if (sub.getStatus() == Status.DONE) {
-                    counterDone++;
-                } else if (sub.getStatus() == Status.NEW) {
-                    counterNew++;
-                } else {
-                    epic.setStatus(Status.IN_PROGRESS);
+            for (Integer sub : epic.getSubTasksId()) {
+                SubTask subTask = subTasks.get(sub);
+                if (subTask != null) {
+                    if (subTask.getStatus() == Status.DONE) {
+                        counterDone++;
+                    } else if (subTask.getStatus() == Status.NEW) {
+                        counterNew++;
+                    } else {
+                        epic.setStatus(Status.IN_PROGRESS);
+                    }
                 }
             }
-            if (counterDone == epic.getSubTasks().size()) {
+            if (counterDone == epic.getSubTasksId().size()) {
                 epic.setStatus(Status.DONE);
-            } else if (counterNew == epic.getSubTasks().size()) {
+            } else if (counterNew == epic.getSubTasksId().size()) {
                 epic.setStatus(Status.NEW);
             } else {
                 epic.setStatus(Status.IN_PROGRESS);
@@ -242,16 +245,18 @@ public class InMemoryTaskManager implements TaskManager  {
         // Дата конца - дата начала самого последнего сабтаска + его длительность
         // длительность - длительность всех сабтасков
 
-        if (epic.getSubTasks().isEmpty()) return; // проверка на наличия сабтасков у эпика
+        if (epic.getSubTasksId().isEmpty()) return; // проверка на наличия сабтасков у эпика
 
-        List<SubTask> subTasksTimeStart = epic.getSubTasks().stream() // сортируем сабтаски эпика по времени начала
-                .filter(subTask -> subTask.getStartTime() != null)
+        List<SubTask> subTasksTimeStart = epic.getSubTasksId().stream() // сортируем сабтаски эпика по времени начала
+                .map(id -> subTasks.get(id))
+                .filter(subTask -> subTask != null && subTask.getStartTime() != null)
                 .sorted(Comparator.comparing(SubTask::getStartTime))
                 .toList();
         if (subTasksTimeStart.isEmpty()) return;
 
-        Duration allSubTasksDuration = epic.getSubTasks().stream() // считаем общую продолжительность сабтасков
-                .filter(subTask -> subTask.getDuration() != null)
+        Duration allSubTasksDuration = epic.getSubTasksId().stream() // считаем общую продолжительность сабтасков
+                .map(id -> subTasks.get(id))
+                .filter(subTask -> subTask != null && subTask.getDuration() != null)
                 .map(SubTask::getDuration)
                 .reduce(Duration.ZERO, Duration::plus);
 

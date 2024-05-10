@@ -3,24 +3,25 @@ package models;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.List;
 
 import static models.Type.EPIC;
 
 public class Epic extends Task {
-    private ArrayList<SubTask> subTasks;
+    private List<Integer> subTasksId;
     LocalDateTime endTime;
 
 
     public Epic(String taskName, String description, Status status) {
         super(taskName, description, status);
         type = EPIC;
-        this.subTasks = new ArrayList<SubTask>();
+        this.subTasksId = new ArrayList<Integer>();
     }
 
     @Override
     public String toString() {
         return "models.Epic{" +
-                "subTasks=" + subTasks.size() +
+                "subTasks=" + subTasksId.size() +
                 ", taskName='" + taskName + '\'' +
                 ", description='" + description + '\'' +
                 ", id=" + id +
@@ -28,12 +29,12 @@ public class Epic extends Task {
                 '}';
     }
 
-    public ArrayList<SubTask> getSubTasks() {
-        return subTasks;
+    public List<Integer> getSubTasksId() {
+        return subTasksId;
     }
 
-    public void setSubTasks(ArrayList<SubTask> subTasks) {
-        this.subTasks = subTasks;
+    public void setSubTasks(List<Integer> subTasks) {
+        this.subTasksId = subTasks;
     }
 
     public void setEndTime(LocalDateTime endTime) {

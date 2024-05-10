@@ -1,9 +1,6 @@
 
-¡
-java:S2293"YReplace the type specification in this constructor call with the diamond operator ("<>").(Ì·ï©ùÿÿÿÿ8§¤—Ìô1J$3c33df8f-1f12-41b8-9845-26e3b4773bb7
-¸
-java:S1319"pThe return type of this method should be an interface such as "List" rather than the implementation "ArrayList".(‹ËÑıÿÿÿÿ8©¤—Ìô1J$355c5eef-c292-4280-8b6f-726d0565597c
-°
-java:S1319#"hThe type of "subTasks" should be an interface such as "List" rather than the implementation "ArrayList".(±ÍÁ£üÿÿÿÿ8©¤—Ìô1J$bb11efba-0390-48cd-8453-347306ab8c8d
+œ
+java:S2293"YReplace the type specification in this constructor call with the diamond operator ("<>").(«éÎÆ8êøšö1J$4b335af1-454e-44a7-8de3-6c6d0414923f
 n
-java:S2160	"+Override the "equals" method in this class.(‡¢ÉÎ8¯¤—Ìô1J$7fc0c5a6-9953-4c94-aeca-1e06b614afb0
+java:S2160
+"+Override the "equals" method in this class.(‡¢ÉÎ8¢éššö1J$a43c055a-f482-448e-a0d3-552206b7644a

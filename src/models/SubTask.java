@@ -15,7 +15,7 @@ public class SubTask extends Task {
         type = SUBTASK;
         this.epic = epic;
         if (epic != null) {
-            epic.getSubTasks().add(this);
+            epic.getSubTasksId().add(this.getId());
         }
     }
 
@@ -24,7 +24,7 @@ public class SubTask extends Task {
         type = SUBTASK;
         this.epic = epic;
         if (epic != null) {
-            epic.getSubTasks().add(this);
+            epic.getSubTasksId().add(this.getId());
         }
         this.duration = Duration.ofMinutes(duration);
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy HH:mm");
@@ -37,7 +37,7 @@ public class SubTask extends Task {
         type = SUBTASK;
         this.epic = epic;
         if (epic != null) {
-            epic.getSubTasks().add(this);
+            epic.getSubTasksId().add(this.getId());
         }
         this.duration = dur;
         this.startTime = startTime;
