@@ -4,17 +4,17 @@ import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
 import exceptions.NotFoundException;
 import manager.TaskManager;
-import models.SubTask;
+import models.Epic;
 import models.Type;
 
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.util.regex.Pattern;
 
-public class SubTaskHandler extends BaseHttpHandler implements HttpHandler {
+public class EpicHandler extends BaseHttpHandler implements HttpHandler {
     private TaskManager taskManager;
 
-    public SubTaskHandler(TaskManager taskManager) {
+    public EpicHandler(TaskManager taskManager) {
         this.taskManager = taskManager;
     }
 
@@ -26,17 +26,17 @@ public class SubTaskHandler extends BaseHttpHandler implements HttpHandler {
 
             switch (method) {
                 case "GET":
-                    if (Pattern.matches("/subtasks/\\d+$", path)) {
-                        getSubTaskById(httpExchange);
+                    if (Pattern.matches("/epics/\\d+$", path)) {
+                        getEpicById(httpExchange);
                     } else {
-                        getSubTasks(httpExchange);
+                        getEpics(httpExchange,path);
                     }
                     break;
                 case "POST":
-                    postSubTask(httpExchange, path);
+                    postEpic(httpExchange, path);
                     break;
                 case "DELETE":
-                    deleteSubTask(httpExchange);
+                    deleteEpic(httpExchange);
                     break;
                 default:
                     throw new NotFoundException("Такого ресурса не существует");
@@ -51,31 +51,39 @@ public class SubTaskHandler extends BaseHttpHandler implements HttpHandler {
     }
 
 
-    // GET (получение подзадачи по ID)
-    public void getSubTaskById(HttpExchange exchange) throws IOException {
+    // GET (получение эпика по ID)
+    public void getEpicById(HttpExchange exchange) throws IOException {
         String path = exchange.getRequestURI().getPath();
         String idString = path.substring(path.lastIndexOf("/") + 1);
         int id = Integer.parseInt(idString);
-        SubTask tsk = taskManager.getSubTask(id);
+        Epic tsk = taskManager.getEpic(id);
         String respo = gson.toJson(tsk);
         sendText(exchange,respo);
     }
 
-    // GET (получение всех подзадач)
-    public void getSubTasks(HttpExchange exchange) throws IOException {
-        sendText(exchange, gson.toJson(taskManager.getSubTasks()));
+
+
+
+    // GET (получение всех эпиков)
+    public void getEpics(HttpExchange exchange, String path) throws IOException {
+        if (Pattern.matches("/epics/\\d+/subtasks", path)) {
+            String idString = path.replaceAll("[^\\d]", "");
+            int id = Integer.parseInt(idString);
+            sendText(exchange, gson.toJson(taskManager.getEpic(id).getSubTasksId()));
+        }
+        sendText(exchange, gson.toJson(taskManager.getEpics()));
     }
 
-    // POST (создание новой подзадачи или обновление существующей)
-    public void postSubTask(HttpExchange exchange, String path) throws IOException {
+    // POST (создание нового эпика или обновление существующего)
+    public void postEpic(HttpExchange exchange, String path) throws IOException {
         String body = new String(exchange.getRequestBody().readAllBytes(), StandardCharsets.UTF_8);
         try {
-            SubTask subTask = gson.fromJson(body, SubTask.class);
-            subTask.setType(Type.SUBTASK);
-            if (Pattern.matches("/subtasks/\\d+$", path)) {
-                taskManager.updateSubTask(subTask);
+            Epic epic = gson.fromJson(body, Epic.class);
+            epic.setType(Type.EPIC);
+            if (Pattern.matches("/epics/\\d+$", path)) {
+                taskManager.updateEpic(epic);
             } else {
-                taskManager.addSubTask(subTask);
+                taskManager.addEpic(epic);
             }
             sendCodeCreated(exchange);
         } catch (NullPointerException e) {
@@ -83,14 +91,14 @@ public class SubTaskHandler extends BaseHttpHandler implements HttpHandler {
         }
     }
 
-    // DELETE (удаление подзадачи по ID)
-    public void deleteSubTask(HttpExchange exchange) throws IOException {
+    // DELETE (удаление эпика по ID)
+    public void deleteEpic(HttpExchange exchange) throws IOException {
         String path = exchange.getRequestURI().getPath();
         String idString = path.substring(path.lastIndexOf("/") + 1);
         int id = Integer.parseInt(idString);
 
-        taskManager.deleteSubTask(id);
-        sendText(exchange, "Подзадача с id-" + id + " удалена успешно!");
+        taskManager.deleteEpic(id);
+        sendText(exchange, "Эпик с id-" + id + " удален успешно!");
     }
 }
 

@@ -2,14 +2,13 @@ package http.handle;
 
 import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
-import exceptions.NotAcceptableException;
 import exceptions.NotFoundException;
 import manager.TaskManager;
 import models.Task;
 import models.Type;
 
 import java.io.IOException;
-import java.io.NotActiveException;
+
 import java.nio.charset.StandardCharsets;
 import java.util.regex.Pattern;
 
@@ -36,7 +35,7 @@ public class TaskHandler extends BaseHttpHandler implements HttpHandler {
                     }
                     break;
                 case "POST":
-                    postTask(httpExchange);
+                    postTask(httpExchange,path);
                     break;
                 case "DELETE":
                     deleteTask(httpExchange);
@@ -56,7 +55,7 @@ public class TaskHandler extends BaseHttpHandler implements HttpHandler {
     // GET (получение задачи по ID)
     public void getTaskById(HttpExchange exchange) throws IOException {
         String path = exchange.getRequestURI().getPath();
-        String idString = path.substring(path.lastIndexOf("/")+ 1);
+        String idString = path.substring(path.lastIndexOf("/") + 1);
         int id = Integer.parseInt(idString);
         Task tsk = taskManager.getTask(id);
         String respo = gson.toJson(tsk);
@@ -69,12 +68,12 @@ public class TaskHandler extends BaseHttpHandler implements HttpHandler {
     }
 
     // POST (создание новой задачи или обновление существующей)
-    public void postTask(HttpExchange exchange) throws IOException {
+    public void postTask(HttpExchange exchange, String path) throws IOException {
         String body = new String(exchange.getRequestBody().readAllBytes(), StandardCharsets.UTF_8);
             try {
                 Task task = gson.fromJson(body, Task.class);
                 task.setType(Type.TASK);
-                if (task.getId() > 0) {
+                if (Pattern.matches("/tasks/\\d+$", path)) {
                     taskManager.updateTask(task);
                 } else {
                     taskManager.addTask(task);
@@ -88,7 +87,7 @@ public class TaskHandler extends BaseHttpHandler implements HttpHandler {
     // DELETE (удаление задачи по ID)
     public void deleteTask(HttpExchange exchange) throws IOException {
         String path = exchange.getRequestURI().getPath();
-        String idString = path.substring(path.lastIndexOf("/")+ 1);
+        String idString = path.substring(path.lastIndexOf("/") + 1);
         int id = Integer.parseInt(idString);
 
         taskManager.deleteTask(id);

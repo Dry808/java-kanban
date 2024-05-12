@@ -10,7 +10,6 @@ import static models.Type.EPIC;
 public class Epic extends Task {
     private List<Integer> subTasksId;
     private LocalDateTime endTime;
-    private Type type = EPIC;
 
 
     public Epic(String taskName, String description, Status status) {
@@ -46,5 +45,6 @@ public class Epic extends Task {
     public LocalDateTime getEndTime() {
         return endTime;
     }
+
 
 }

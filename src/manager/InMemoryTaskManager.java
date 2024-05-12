@@ -15,7 +15,7 @@ public class InMemoryTaskManager implements TaskManager  {
     protected Map<Integer, Epic> epics = new HashMap<>();
     protected HistoryManager historyManager = Managers.getDefaultHistory();
     protected TreeSet<Task> prioritizedTasks = new TreeSet<>(getTaskComparator());
-    private int idSequence = 1;
+    private int idSequence = 0;
 
     // Методы Task
     @Override
@@ -60,7 +60,7 @@ public class InMemoryTaskManager implements TaskManager  {
     }
 
     @Override
-    public Task updateTask(Task updateTask) throws NotFoundException{
+    public Task updateTask(Task updateTask) throws NotFoundException {
         if (updateTask == null) {
             throw new NotFoundException("такой задачи не существует");
         }
@@ -112,7 +112,10 @@ public class InMemoryTaskManager implements TaskManager  {
     }
 
     @Override
-    public SubTask getSubTask(int id) {
+    public SubTask getSubTask(int id) throws NotFoundException {
+        if (subTasks.get(id) == null) {
+            throw new NotFoundException("такой подзадачи не существует");
+        }
         SubTask subTask = subTasks.get(id);
         historyManager.add(subTask);
         return subTask;
@@ -120,6 +123,9 @@ public class InMemoryTaskManager implements TaskManager  {
 
     @Override
     public SubTask addSubTask(SubTask newSubTask) {
+        if (newSubTask == null) {
+            throw new NotFoundException("такой подзадачи не существует");
+        }
         newSubTask.setId(generateId());
         newSubTask.getEpic().getSubTasksId().add(newSubTask.getId()); // добавили id subTask в эпик
 
@@ -136,7 +142,10 @@ public class InMemoryTaskManager implements TaskManager  {
     }
 
     @Override
-    public void updateSubTask(SubTask updateSubTask) {
+    public void updateSubTask(SubTask updateSubTask) throws NotFoundException {
+        if (updateSubTask == null) {
+            throw new NotFoundException("такой подзадачи не существует");
+        }
         SubTask oldSubTask = subTasks.get(updateSubTask.getId());
         prioritizedTasks.remove(oldSubTask);
         subTasks.put(updateSubTask.getId(), updateSubTask);
@@ -147,7 +156,10 @@ public class InMemoryTaskManager implements TaskManager  {
     }
 
     @Override
-    public SubTask deleteSubTask(int id) {
+    public SubTask deleteSubTask(int id) throws NotFoundException {
+        if (subTasks.get(id) == null) {
+            throw new NotFoundException("такой подзадачи не существует");
+        }
         SubTask subTask = subTasks.remove(id);
         prioritizedTasks.remove(subTask);
         subTask.getEpic().getSubTasksId().remove(subTask.getId());
@@ -171,13 +183,19 @@ public class InMemoryTaskManager implements TaskManager  {
 
 
     @Override
-    public Epic getEpic(int id) {
+    public Epic getEpic(int id) throws NotFoundException {
+        if (epics.get(id) == null) {
+            throw new NotFoundException("такого эпика не существует");
+        }
         historyManager.add(epics.get(id));
         return epics.get(id);
     }
 
     @Override
     public Epic addEpic(Epic newEpic) {
+        if (newEpic == null) {
+            throw new NotFoundException("такого эпика не существует");
+        }
         newEpic.setId(generateId());
         changeEpicStatus(newEpic);
         changeEpicDuration(newEpic);
@@ -187,13 +205,19 @@ public class InMemoryTaskManager implements TaskManager  {
 
 
     @Override
-    public void updateEpic(Epic updateEpic) {
+    public void updateEpic(Epic updateEpic) throws NotFoundException {
+        if (updateEpic == null) {
+            throw new NotFoundException("такого эпика не существует");
+        }
         epics.put(updateEpic.getId(), updateEpic);
     }
 
 
     @Override
-    public Epic deleteEpic(int id) {
+    public Epic deleteEpic(int id) throws NotFoundException {
+        if (epics.get(id) == null) {
+            throw new NotFoundException("такого эпика не существует");
+        }
         Epic epic = epics.get(id);
         List<Integer> subTasksToDelete = new ArrayList<>();
 
@@ -293,6 +317,7 @@ public class InMemoryTaskManager implements TaskManager  {
         }
     }
 
+    @Override
     public List<Task> getPrioritizedTasks() {
         return new ArrayList<>(prioritizedTasks);
     }

@@ -1,7 +1,11 @@
 
-7
-java:S1220""Move this file to a named package.8Ñ‚¥çö1
-]	java:S125"<This block of commented-out lines of code should be removed.(Ó™°Ôýÿÿÿÿ8Ú‚¥çö1
-]	java:S125"<This block of commented-out lines of code should be removed.(¼Ç¹¹úÿÿÿÿ8Ü‚¥çö1
-X	java:S125"<This block of commented-out lines of code should be removed.(—¸ƒÈ8Ü‚¥çö1
-X	java:S125!"<This block of commented-out lines of code should be removed.(Œú­8Ü‚¥çö1
+]
+java:S1220""Move this file to a named package.8Ñ‚¥çö1J$87b0bae7-6a50-4fc0-85a0-a1c0b73c1457
+ˆ
+java:S1854""@Remove this useless assignment to local variable "taskManager1".(°­€úþÿÿÿÿ8·ú•éö1J$f464352c-1a82-4c52-8342-93712cd961b0
+ƒ	java:S125"<This block of commented-out lines of code should be removed.(Ó™°Ôýÿÿÿÿ8Ú‚¥çö1J$3dccc330-3d4c-4fe6-87c5-3e3615bb5bdc
+ƒ	java:S125"<This block of commented-out lines of code should be removed.(¼Ç¹¹úÿÿÿÿ8Ü‚¥çö1J$26ab959e-13e1-4176-ba93-819b81b857b7
+~	java:S125"<This block of commented-out lines of code should be removed.(—¸ƒÈ8Ü‚¥çö1J$d6cf6ab1-96ce-489c-9340-d15c93a31301
+]	java:S125"<This block of commented-out lines of code should be removed.(ô·Âüÿÿÿÿ8Ìƒ§éö1
+y
+java:S1481""1Remove this unused "taskManager1" local variable.(°­€úþÿÿÿÿ8¾ú•éö1J$36490cd8-eef5-49fd-b36e-1fa4213fa98f
