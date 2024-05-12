@@ -1,5 +1,8 @@
 package models;
 
+import java.time.Duration;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Objects;
 
 import static models.Type.TASK;
@@ -10,6 +13,8 @@ public class Task {
     protected String description;
     protected int id;
     protected Status status;
+    protected Duration duration;
+    protected LocalDateTime  startTime;
 
 
     public Task(String taskName, String description, Status status) {
@@ -17,6 +22,48 @@ public class Task {
         this.description = description;
         this.status = status;
         type = TASK;
+    }
+
+    public Task(String taskName, String description, Status status, LocalDateTime startTime, Duration dur) {
+        this.taskName = taskName;
+        this.description = description;
+        this.status = status;
+        type = TASK;
+        this.duration = dur;
+        this.startTime = startTime;
+    }
+
+    public Task(String taskName, String description, Status status, String startTime, long duration) {
+        this.taskName = taskName;
+        this.description = description;
+        this.status = status;
+        type = TASK;
+        this.duration = Duration.ofMinutes(duration);
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy HH:mm");
+        this.startTime = LocalDateTime.parse(startTime, formatter);
+    }
+
+    @Override
+    public String toString() {
+        return "models.Task{" +
+                "taskName='" + taskName + '\'' +
+                ", description='" + description + '\'' +
+                ", id=" + id +
+                ", status=" + status +
+                '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Task task = (Task) o;
+        return id == task.id;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id);
     }
 
     //getter and setter
@@ -55,31 +102,30 @@ public class Task {
         this.status = status;
     }
 
+    public Duration getDuration() {
+        return duration;
+    }
+
+    public void setDuration(Duration duration) {
+        this.duration = duration;
+    }
+
+    public LocalDateTime getStartTime() {
+        return startTime;
+    }
+
+    public void setStartTime(LocalDateTime startTime) {
+        this.startTime = startTime;
+    }
 
     public Type getType() {
         return type;
     }
 
-    @Override
-    public String toString() {
-        return "models.Task{" +
-                "taskName='" + taskName + '\'' +
-                ", description='" + description + '\'' +
-                ", id=" + id +
-                ", status=" + status +
-                '}';
+    // метод для получения времени окончания таски
+    public LocalDateTime getEndTime() {
+        return startTime.plus(duration);
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Task task = (Task) o;
-        return id == task.id;
-    }
 
-    @Override
-    public int hashCode() {
-        return Objects.hash(id);
-    }
 }

@@ -12,9 +12,13 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 
 
-class FileBackedTaskManagerTest {
+class FileBackedTaskManagerTest extends TaskManagerTest<FileBackedTaskManager> {
     FileBackedTaskManager fileBackedTaskManager;
 
+    @Override
+    protected FileBackedTaskManager createTaskManager() {
+        return new FileBackedTaskManager("testFile.csv");
+    }
 
     @BeforeEach
     public void beforeEach() {

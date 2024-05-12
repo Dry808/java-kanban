@@ -29,3 +29,23 @@ Y
 testFile.csv,0\3\037c2f7741451f5a235197ad9e908a555507e57e
 X
 (src/exceptions/ManagerSaveException.java,7\d\7d3210902b716832cae33861d0284eef901a4491
+I
+test/models/TaskTest.java,c\e\ce4ad3c477331e6943c47dceb23f4268f2b2b49d
+I
+test/models/EpicTest.java,7\6\76d2a5caf4cdb89aa86873e810414d9738ca45fd
+Q
+!test/manager/TaskManagerTest.java,6\5\65acdcd5f19ef3da98de3f6764a48be93a973c34
+L
+src/manager/TaskManager.java,f\a\faa70362252a04b2ad35762a07b341f056f03658
+O
+src/manager/HistoryManager.java,f\0\f0c741df96791e27097b39b0bc018b06cb88f0a9
+L
+test/models/SubTaskTest.java,1\7\17f7f097bbae50d2ac9fd262734be13bcc835c56
+G
+src/HttpTaskServer.java,5\0\504895c5e6a05b1039b5646df83050841ce93a93
+N
+src/server/HttpTaskServer.java,5\d\5da536c50dbf37b3b318e55abab2c3b6fb8a98fc
+O
+src/server/BaseHttpHandler.java,5\a\5a815d6db5a9adc48479011334edc992a1d04829
+K
+src/server/TaskHandler.java,b\5\b5def7b6b83a9ac40ca52c2f0b41a32ecaa280d8
