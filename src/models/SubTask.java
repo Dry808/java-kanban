@@ -8,20 +8,20 @@ import static models.Type.EPIC;
 import static models.Type.SUBTASK;
 
 public class SubTask extends Task {
-    private Epic epic;
+    private int epicId;
     private Type type = SUBTASK;
 
 
     public SubTask(String taskName, String description, Status status, Epic epic) {
         super(taskName, description, status);
         type = SUBTASK;
-        this.epic = epic;
+        this.epicId = epic.getId();
     }
 
     public SubTask(String taskName, String description, Status status, Epic epic, String startTime, long duration) {
         super(taskName, description, status);
         type = SUBTASK;
-        this.epic = epic;
+        this.epicId = epic.getId();
         this.duration = Duration.ofMinutes(duration);
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy HH:mm");
         this.startTime = LocalDateTime.parse(startTime, formatter);
@@ -31,7 +31,7 @@ public class SubTask extends Task {
                    LocalDateTime startTime, Duration dur) {
         super(taskName, description, status);
         type = SUBTASK;
-        this.epic = epic;
+        this.epicId = epic.getId();
         this.duration = dur;
         this.startTime = startTime;
     }
@@ -39,7 +39,7 @@ public class SubTask extends Task {
     @Override
     public String toString() {
         return "models.SubTask{" +
-                "epic=" + epic +
+                "epic=" + epicId +
                 ", taskName='" + taskName + '\'' +
                 ", description='" + description + '\'' +
                 ", id=" + id +
@@ -47,11 +47,13 @@ public class SubTask extends Task {
                 '}';
     }
 
-    public Epic getEpic() {
-        return epic;
+    public int getEpic() {
+        return epicId;
     }
 
+
+
     public void setEpic(Epic epic) {
-        this.epic = epic;
+        this.epicId = epic.getId();
     }
 }

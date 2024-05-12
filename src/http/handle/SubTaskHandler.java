@@ -2,24 +2,22 @@ package http.handle;
 
 import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
-import exceptions.NotAcceptableException;
 import exceptions.NotFoundException;
 import manager.TaskManager;
+import models.SubTask;
 import models.Task;
 import models.Type;
 
 import java.io.IOException;
-import java.io.NotActiveException;
 import java.nio.charset.StandardCharsets;
 import java.util.regex.Pattern;
 
-public class TaskHandler extends BaseHttpHandler implements HttpHandler {
+public class SubTaskHandler extends BaseHttpHandler implements HttpHandler {
     private TaskManager taskManager;
 
-    public TaskHandler(TaskManager taskManager) {
+    public SubTaskHandler(TaskManager taskManager) {
         this.taskManager = taskManager;
     }
-
 
     @Override
     public void handle(HttpExchange httpExchange) throws IOException {
@@ -29,20 +27,20 @@ public class TaskHandler extends BaseHttpHandler implements HttpHandler {
 
             switch (method) {
                 case "GET":
-                    if (Pattern.matches("/tasks/\\d+$", path)) {
-                        getTaskById(httpExchange);
+                    if (Pattern.matches("/subtask/\\d+$", path)) {
+                        getSubTaskById(httpExchange);
                     } else {
-                        getTasks(httpExchange);
+                        getSubTasks(httpExchange);
                     }
                     break;
                 case "POST":
-                    postTask(httpExchange);
+                    postSubTask(httpExchange);
                     break;
                 case "DELETE":
-                    deleteTask(httpExchange);
+                    deleteSubTask(httpExchange);
                     break;
                 default:
-                    sendHttpCode(httpExchange,"Method Not Allowed", 405);
+                    throw new NotFoundException("Такого ресурса не существует");
             }
         } catch (NotFoundException e) {
             sendNotFound(httpExchange, e.getMessage());
@@ -53,46 +51,46 @@ public class TaskHandler extends BaseHttpHandler implements HttpHandler {
         }
     }
 
-    // GET (получение задачи по ID)
-    public void getTaskById(HttpExchange exchange) throws IOException {
+    // GET (получение подзадачи по ID)
+    public void getSubTaskById(HttpExchange exchange) throws IOException {
         String path = exchange.getRequestURI().getPath();
         String idString = path.substring(path.lastIndexOf("/")+ 1);
         int id = Integer.parseInt(idString);
-        Task tsk = taskManager.getTask(id);
+        SubTask tsk = taskManager.getSubTask(id);
         String respo = gson.toJson(tsk);
         sendText(exchange,respo);
     }
 
-    // GET (получение всех задач)
-    public void getTasks(HttpExchange exchange) throws IOException {
-        sendText(exchange, gson.toJson(taskManager.getTasks()));
+    // GET (получение всех подзадач)
+    public void getSubTasks(HttpExchange exchange) throws IOException {
+        sendText(exchange, gson.toJson(taskManager.getSubTasks()));
     }
 
-    // POST (создание новой задачи или обновление существующей)
-    public void postTask(HttpExchange exchange) throws IOException {
+    // POST (создание новой подзадачи или обновление существующей)
+    public void postSubTask(HttpExchange exchange) throws IOException {
         String body = new String(exchange.getRequestBody().readAllBytes(), StandardCharsets.UTF_8);
-            try {
-                Task task = gson.fromJson(body, Task.class);
-                task.setType(Type.TASK);
-                if (task.getId() > 0) {
-                    taskManager.updateTask(task);
-                } else {
-                    taskManager.addTask(task);
-                }
-                sendCodeCreated(exchange);
-            } catch (NullPointerException e) {
-                throw new NotFoundException(e.getMessage());
+        try {
+            SubTask subTask = gson.fromJson(body, SubTask.class);
+            subTask.setType(Type.SUBTASK);
+            if (subTask.getId() > 0) {
+                taskManager.updateSubTask(subTask);
+            } else {
+                taskManager.addSubTask(subTask);
             }
+            sendCodeCreated(exchange);
+        } catch (NullPointerException e) {
+            throw new NotFoundException(e.getMessage());
         }
+    }
 
-    // DELETE (удаление задачи по ID)
-    public void deleteTask(HttpExchange exchange) throws IOException {
+    // DELETE (удаление подзадачи по ID)
+    public void deleteSubTask(HttpExchange exchange) throws IOException {
         String path = exchange.getRequestURI().getPath();
         String idString = path.substring(path.lastIndexOf("/")+ 1);
         int id = Integer.parseInt(idString);
 
-        taskManager.deleteTask(id);
-        sendText(exchange, "Задача с id-" + id + " удалена успешно!");
+        taskManager.deleteSubTask(id);
+        sendText(exchange, "Подзадача с id-" + id + " удалена успешно!");
     }
 }
 

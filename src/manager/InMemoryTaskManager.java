@@ -1,5 +1,6 @@
 package manager;
 
+import exceptions.NotFoundException;
 import models.Epic;
 import models.Status;
 import models.SubTask;
@@ -31,7 +32,10 @@ public class InMemoryTaskManager implements TaskManager  {
     }
 
     @Override
-    public Task getTask(int id) {
+    public Task getTask(int id) throws NotFoundException {
+        if (tasks.get(id) == null) {
+            throw new NotFoundException("такой задачи не существует");
+        }
         historyManager.add(tasks.get(id));
         return tasks.get(id);
     }
@@ -39,6 +43,9 @@ public class InMemoryTaskManager implements TaskManager  {
 
     @Override
     public Task addTask(Task newTask) {
+        if (newTask == null) {
+            throw new NotFoundException("такой задачи не существует");
+        }
         newTask.setId(generateId());
 
         // проверяем на пересечения
@@ -53,7 +60,10 @@ public class InMemoryTaskManager implements TaskManager  {
     }
 
     @Override
-    public Task updateTask(Task updateTask) {
+    public Task updateTask(Task updateTask) throws NotFoundException{
+        if (updateTask == null) {
+            throw new NotFoundException("такой задачи не существует");
+        }
         Task oldTask = tasks.get(updateTask.getId());
         prioritizedTasks.remove(oldTask);
 
@@ -69,6 +79,9 @@ public class InMemoryTaskManager implements TaskManager  {
 
     @Override
     public Task deleteTask(int id) {
+        if (tasks.get(id) == null) {
+            throw new NotFoundException("такой задачи не существует");
+        }
         historyManager.remove(id);
         prioritizedTasks.remove(tasks.get(id));
         return tasks.remove(id);

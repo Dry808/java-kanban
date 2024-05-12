@@ -23,37 +23,38 @@ public class BaseHttpHandler {
     }
 
 
-    // для отправки ответа 200 с текстом в теле
-    protected void sendText(HttpExchange h, String text) throws IOException {
+
+    protected void sendHttpCode(HttpExchange h, String text, int httpCode) throws IOException {
         byte[] resp = text.getBytes(StandardCharsets.UTF_8);
         h.getResponseHeaders().add("Content-Type", "application/json;charset=utf-8");
-        h.sendResponseHeaders(200, resp.length);
+        h.sendResponseHeaders(httpCode, resp.length);
         h.getResponseBody().write(resp);
         h.close();
     }
 
-    // для отправки ответа 201(модификация)
+    // код 200 - ОК
+    protected void sendText(HttpExchange h, String text) throws IOException {
+        sendHttpCode(h,text,200);
+    }
+
+    // код 201 - ОК(модификация)
     protected void  sendCodeCreated(HttpExchange h) throws IOException {
         h.sendResponseHeaders(201,0);
         h.close();
     }
 
-    protected void sendHttpCode(HttpExchange h, int code) throws IOException {
-        h.sendResponseHeaders(code,0);
-        h.close();
-    }
-
+    // код 404 - NotFound
     protected void sendNotFound(HttpExchange h, String text) throws IOException {
-        byte[] resp = text.getBytes(StandardCharsets.UTF_8);
-        h.sendResponseHeaders(404,resp.length);
-        h.getResponseBody().write(resp);
-        h.close();
+        sendHttpCode(h,text,404);
     }
 
+    // код 406 - Пересечения по времени
     protected void sendHasInteractions(HttpExchange h, String text) throws IOException {
-        byte[] resp = text.getBytes(StandardCharsets.UTF_8);
-        h.sendResponseHeaders(406,resp.length);
-        h.getResponseBody().write(resp);
-        h.close();
+        sendHttpCode(h,text,406);
+    }
+
+    // 500 - ошибка на сервере
+    protected void sendServerError(HttpExchange h, String text) throws IOException {
+        sendHttpCode(h, text, 500);
     }
 }
