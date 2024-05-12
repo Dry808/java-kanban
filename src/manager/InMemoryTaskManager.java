@@ -14,7 +14,7 @@ public class InMemoryTaskManager implements TaskManager  {
     protected Map<Integer, Epic> epics = new HashMap<>();
     protected HistoryManager historyManager = Managers.getDefaultHistory();
     protected TreeSet<Task> prioritizedTasks = new TreeSet<>(getTaskComparator());
-    private int idSequence = 0;
+    private int idSequence = 1;
 
     // Методы Task
     @Override

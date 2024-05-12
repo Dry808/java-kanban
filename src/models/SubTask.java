@@ -4,10 +4,12 @@ import java.time.Duration;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
+import static models.Type.EPIC;
 import static models.Type.SUBTASK;
 
 public class SubTask extends Task {
     private Epic epic;
+    private Type type = SUBTASK;
 
 
     public SubTask(String taskName, String description, Status status, Epic epic) {

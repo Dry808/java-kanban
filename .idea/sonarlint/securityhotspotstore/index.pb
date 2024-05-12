@@ -41,11 +41,19 @@ O
 src/manager/HistoryManager.java,f\0\f0c741df96791e27097b39b0bc018b06cb88f0a9
 L
 test/models/SubTaskTest.java,1\7\17f7f097bbae50d2ac9fd262734be13bcc835c56
-G
-src/HttpTaskServer.java,5\0\504895c5e6a05b1039b5646df83050841ce93a93
-N
-src/server/HttpTaskServer.java,5\d\5da536c50dbf37b3b318e55abab2c3b6fb8a98fc
-O
-src/server/BaseHttpHandler.java,5\a\5a815d6db5a9adc48479011334edc992a1d04829
-K
-src/server/TaskHandler.java,b\5\b5def7b6b83a9ac40ca52c2f0b41a32ecaa280d8
+L
+src/http/HttpTaskServer.java,3\1\317d55dc379df3ae64df130edfa65c17c0f0f756
+T
+$src/http/handle/BaseHttpHandler.java,c\3\c36fa64950a0a40f974f671e9ffff05487519e59
+P
+ src/http/handle/TaskHandler.java,0\3\0343dfa53790ddf0770e1f6fdb43f40745bf6d30
+Q
+!src/http/DurationTypeAdapter.java,2\c\2c8641d1805fa22f8d73dcffc88cf6a74b685558
+V
+&src/http/LocalTimeDateTypeAdapter.java,2\5\25fb9504efc24bfba169d642a31f5dc14c1a52f4
+V
+&src/http/LocalDateTimeTypeAdapter.java,6\1\6192d06bd7d6e2cde823991d1c45dc8e4df7f9be
+U
+%src/exceptions/NotFoundException.java,c\2\c21fbf875c32b8a24318e4e528c8b29f01645230
+Z
+*src/exceptions/NotAcceptableException.java,c\7\c7031e7fe5f05438909d392bb0d97ba47405bb60

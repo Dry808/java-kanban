@@ -1,8 +1,2 @@
 id,type,name,status,description,epic, startTime, duration
-4,TASK,Задача 1,IN_PROGRESS,task 1,,,,
-5,TASK,Задача 1,IN_PROGRESS,task 1,,2023-02-24T21:40,10,
-0,EPIC,NameEpic,IN_PROGRESS,Opisanie,,2023-02-23T21:33,64,
-6,EPIC,NameEpic,DONE,Opisanie,,,,
-1,SUBTASK,Name,NEW,Descr,0,2024-05-05T11:00,20,
-2,SUBTASK,Name2,NEW,Descr2,0,2024-05-03T12:00,34,
-3,SUBTASK,Name3,IN_PROGRESS,Descr3,0,2023-02-23T21:33,10,
+1,TASK,Задача 1,IN_PROGRESS,task 1,,2024-02-21T21:33,70,

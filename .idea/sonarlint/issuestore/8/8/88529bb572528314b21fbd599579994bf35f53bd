@@ -1,3 +1,10 @@
 
-n
-java:S2160	"+Override the "equals" method in this class.(« À8úÎ¥œö1J$cbfad915-5687-4c80-a819-2cea1ab60180
+J
+java:S2387"("type" is the name of a field in "Task".(ô©Ÿÿÿÿÿÿ8ú Úßö1
+H
+java:S2160
+"+Override the "equals" method in this class.(« À8û Úßö1
+O
+java:S1128"-Remove this unused import 'models.Type.EPIC'.(Ïà…¹ÿÿÿÿÿ8ƒ¡Úßö1
+J
+java:S1068"(Remove this unused "type" private field.(ô©Ÿÿÿÿÿÿ8„¡Úßö1
