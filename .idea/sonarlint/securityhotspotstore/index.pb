@@ -49,8 +49,6 @@ P
  src/http/handle/TaskHandler.java,0\3\0343dfa53790ddf0770e1f6fdb43f40745bf6d30
 U
 %src/exceptions/NotFoundException.java,c\2\c21fbf875c32b8a24318e4e528c8b29f01645230
-Z
-*src/exceptions/NotAcceptableException.java,c\7\c7031e7fe5f05438909d392bb0d97ba47405bb60
 S
 #src/http/handle/SubTaskHandler.java,1\d\1de82a3d09d5646d2844a23f938bbee987af9b03
 D
@@ -61,8 +59,6 @@ S
 #src/http/handle/HistoryHandler.java,3\2\32fe76783ea7da861b57c955b66d151ea101ee35
 W
 'src/http/handle/PrioritizedHandler.java,f\2\f2b69c3d67c1e1fc0128c2477588c9e3f7a40fe4
-Q
-!test/http/HttpTaskServerTest.java,b\8\b8b67c22958f3d3f94fa1ab58e94b99ebfd8f505
 V
 &test/http/HttpTaskServerTasksTest.java,6\d\6d6707d0b7524f7269f3ca314adc09de55a6eda6
 Y

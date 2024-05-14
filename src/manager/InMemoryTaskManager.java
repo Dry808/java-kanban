@@ -33,8 +33,8 @@ public class InMemoryTaskManager implements TaskManager  {
 
     @Override
     public Task getTask(int id) throws NotFoundException {
-        if (tasks.get(id) == null) {
-            throw new NotFoundException("такой задачи не существует");
+        if (tasks.containsKey(id)) {
+            throw new NotFoundException("Задачи с ID " + id + " не существует");
         }
         historyManager.add(tasks.get(id));
         return tasks.get(id);
@@ -44,7 +44,7 @@ public class InMemoryTaskManager implements TaskManager  {
     @Override
     public Task addTask(Task newTask) {
         if (newTask == null) {
-            throw new NotFoundException("такой задачи не существует");
+            throw new NotFoundException("Переданная задача не может быть null");
         }
         newTask.setId(generateId());
 
@@ -62,7 +62,7 @@ public class InMemoryTaskManager implements TaskManager  {
     @Override
     public Task updateTask(Task updateTask) throws NotFoundException {
         if (updateTask == null) {
-            throw new NotFoundException("такой задачи не существует");
+            throw new NotFoundException("Переданная задача не может быть null");
         }
         Task oldTask = tasks.get(updateTask.getId());
         prioritizedTasks.remove(oldTask);
@@ -79,8 +79,8 @@ public class InMemoryTaskManager implements TaskManager  {
 
     @Override
     public Task deleteTask(int id) {
-        if (tasks.get(id) == null) {
-            throw new NotFoundException("такой задачи не существует");
+        if (tasks.containsKey(id)) {
+            throw new NotFoundException("Задачи с ID " + id + " не существует");
         }
         historyManager.remove(id);
         prioritizedTasks.remove(tasks.get(id));
@@ -113,8 +113,8 @@ public class InMemoryTaskManager implements TaskManager  {
 
     @Override
     public SubTask getSubTask(int id) throws NotFoundException {
-        if (subTasks.get(id) == null) {
-            throw new NotFoundException("такой подзадачи не существует");
+        if (subTasks.containsKey(id)) {
+            throw new NotFoundException("Подзадачи с ID " + id + " не существует");
         }
         SubTask subTask = subTasks.get(id);
         historyManager.add(subTask);
@@ -124,7 +124,7 @@ public class InMemoryTaskManager implements TaskManager  {
     @Override
     public SubTask addSubTask(SubTask newSubTask) {
         if (newSubTask == null) {
-            throw new NotFoundException("такой подзадачи не существует");
+            throw new NotFoundException("Переданная подзадача не может быть null");
         }
         newSubTask.setId(generateId());
         newSubTask.getEpic().getSubTasksId().add(newSubTask.getId()); // добавили id subTask в эпик
@@ -132,7 +132,7 @@ public class InMemoryTaskManager implements TaskManager  {
         // проверка на пересечения
         if (newSubTask.getStartTime() != null && getPrioritizedTasks().stream()
                 .anyMatch(task -> isIntersect(task, newSubTask))) {
-            throw new IllegalArgumentException("Задача пересекается по времени с существующей");
+            throw new IllegalArgumentException("Подзадача пересекается по времени с существующей");
         }
         subTasks.put(newSubTask.getId(), newSubTask);
         changeEpicStatus(newSubTask.getEpic());
@@ -144,7 +144,7 @@ public class InMemoryTaskManager implements TaskManager  {
     @Override
     public void updateSubTask(SubTask updateSubTask) throws NotFoundException {
         if (updateSubTask == null) {
-            throw new NotFoundException("такой подзадачи не существует");
+            throw new NotFoundException("Переданная подзадача не может быть null");
         }
         SubTask oldSubTask = subTasks.get(updateSubTask.getId());
         prioritizedTasks.remove(oldSubTask);
@@ -157,8 +157,8 @@ public class InMemoryTaskManager implements TaskManager  {
 
     @Override
     public SubTask deleteSubTask(int id) throws NotFoundException {
-        if (subTasks.get(id) == null) {
-            throw new NotFoundException("такой подзадачи не существует");
+        if (subTasks.containsKey(id)) {
+            throw new NotFoundException("Подзадачи с ID " + id + " не существует");
         }
         SubTask subTask = subTasks.remove(id);
         prioritizedTasks.remove(subTask);
@@ -184,8 +184,8 @@ public class InMemoryTaskManager implements TaskManager  {
 
     @Override
     public Epic getEpic(int id) throws NotFoundException {
-        if (epics.get(id) == null) {
-            throw new NotFoundException("такого эпика не существует");
+        if (epics.containsKey(id)) {
+            throw new NotFoundException("Эпика с ID " + id + " не существует");
         }
         historyManager.add(epics.get(id));
         return epics.get(id);
@@ -194,7 +194,7 @@ public class InMemoryTaskManager implements TaskManager  {
     @Override
     public Epic addEpic(Epic newEpic) {
         if (newEpic == null) {
-            throw new NotFoundException("такого эпика не существует");
+            throw new NotFoundException("Переданный эпик не может быть null");
         }
         newEpic.setId(generateId());
         changeEpicStatus(newEpic);
@@ -207,7 +207,7 @@ public class InMemoryTaskManager implements TaskManager  {
     @Override
     public void updateEpic(Epic updateEpic) throws NotFoundException {
         if (updateEpic == null) {
-            throw new NotFoundException("такого эпика не существует");
+            throw new NotFoundException("Переданный эпик не может быть null");
         }
         epics.put(updateEpic.getId(), updateEpic);
     }
@@ -215,8 +215,8 @@ public class InMemoryTaskManager implements TaskManager  {
 
     @Override
     public Epic deleteEpic(int id) throws NotFoundException {
-        if (epics.get(id) == null) {
-            throw new NotFoundException("такого эпика не существует");
+        if (epics.containsKey(id)) {
+            throw new NotFoundException("Эпика с ID " + id + " не существует");
         }
         Epic epic = epics.get(id);
         List<Integer> subTasksToDelete = new ArrayList<>();

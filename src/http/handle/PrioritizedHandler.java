@@ -14,6 +14,7 @@ public class PrioritizedHandler extends BaseHttpHandler implements HttpHandler {
         this.taskManager = taskManager;
     }
 
+    // Метод для обработки GET запроса - возвращает приоритезированный список задач
     @Override
     public void handle(HttpExchange exchange) throws IOException {
         if (exchange.getRequestMethod().equals("GET")) {

@@ -23,7 +23,6 @@ public class BaseHttpHandler {
     }
 
 
-
     protected void sendHttpCode(HttpExchange h, String text, int httpCode) throws IOException {
         byte[] resp = text.getBytes(StandardCharsets.UTF_8);
         h.getResponseHeaders().add("Content-Type", "application/json;charset=utf-8");

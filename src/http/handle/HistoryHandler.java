@@ -4,7 +4,6 @@ import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
 import exceptions.NotFoundException;
 import manager.TaskManager;
-
 import java.io.IOException;
 
 public class HistoryHandler extends BaseHttpHandler implements HttpHandler {
@@ -14,6 +13,11 @@ public class HistoryHandler extends BaseHttpHandler implements HttpHandler {
         this.taskManager = taskManager;
     }
 
+    /*
+    Метод для обработки HTTP запроса.
+    Обрабатывает только GET запрос и возвращает историю задач в формате JSON.
+    Для остальных запросов возвращается код ошибки 405
+     */
     @Override
     public void handle(HttpExchange httpExchange) throws IOException {
         try {

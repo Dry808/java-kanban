@@ -13,6 +13,7 @@ import java.util.regex.Pattern;
 
 public class SubTaskHandler extends BaseHttpHandler implements HttpHandler {
     private TaskManager taskManager;
+    private static final String PATH_SUBTASKS_ID_PATTERN = "/subtasks/\\d+$";
 
     public SubTaskHandler(TaskManager taskManager) {
         this.taskManager = taskManager;
@@ -26,7 +27,7 @@ public class SubTaskHandler extends BaseHttpHandler implements HttpHandler {
 
             switch (method) {
                 case "GET":
-                    if (Pattern.matches("/subtasks/\\d+$", path)) {
+                    if (Pattern.matches(PATH_SUBTASKS_ID_PATTERN, path)) {
                         getSubTaskById(httpExchange);
                     } else {
                         getSubTasks(httpExchange);
@@ -50,7 +51,6 @@ public class SubTaskHandler extends BaseHttpHandler implements HttpHandler {
         }
     }
 
-
     // GET (получение подзадачи по ID)
     public void getSubTaskById(HttpExchange exchange) throws IOException {
         String path = exchange.getRequestURI().getPath();
@@ -72,7 +72,7 @@ public class SubTaskHandler extends BaseHttpHandler implements HttpHandler {
         try {
             SubTask subTask = gson.fromJson(body, SubTask.class);
             subTask.setType(Type.SUBTASK);
-            if (Pattern.matches("/subtasks/\\d+$", path)) {
+            if (Pattern.matches(PATH_SUBTASKS_ID_PATTERN, path)) {
                 taskManager.updateSubTask(subTask);
             } else {
                 taskManager.addSubTask(subTask);

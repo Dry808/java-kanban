@@ -4,6 +4,7 @@ import com.sun.net.httpserver.HttpServer;
 import http.handle.*;
 import manager.Managers;
 import manager.TaskManager;
+
 import java.io.IOException;
 import java.net.InetSocketAddress;
 
@@ -16,16 +17,16 @@ public class HttpTaskServer {
         this.taskManager = taskManager;
     }
 
+    // главный метод, создаём экземпляр класса и запускаем сервер
     public static void main(String[] args) {
-
         HttpTaskServer httpTaskServer = new HttpTaskServer(Managers.getDefault("file.csv"));
         httpTaskServer.start();
-        httpTaskServer.stop();
     }
 
-    public void start()  {
+    // метод настраивает контексты обработчиков и запускет сервер
+    public void start() {
         try {
-            server = HttpServer.create(new InetSocketAddress("localhost", 8080), 0);
+            server = HttpServer.create(new InetSocketAddress("localhost", PORT), 0);
             server.createContext("/tasks", new TaskHandler(taskManager));
             server.createContext("/subtasks", new SubTaskHandler(taskManager));
             server.createContext("/epics", new EpicHandler(taskManager));
@@ -38,6 +39,7 @@ public class HttpTaskServer {
         }
     }
 
+    // метод для остановки сервера
     public void stop() {
         server.stop(0);
         System.out.println("Сервер остановлен");

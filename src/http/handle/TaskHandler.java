@@ -14,6 +14,7 @@ import java.util.regex.Pattern;
 
 public class TaskHandler extends BaseHttpHandler implements HttpHandler {
     private TaskManager taskManager;
+    private static final String PATH_TASKS_ID_PATTERN = "/tasks/\\d+$";
 
     public TaskHandler(TaskManager taskManager) {
         this.taskManager = taskManager;
@@ -28,20 +29,20 @@ public class TaskHandler extends BaseHttpHandler implements HttpHandler {
 
             switch (method) {
                 case "GET":
-                    if (Pattern.matches("/tasks/\\d+$", path)) {
+                    if (Pattern.matches(PATH_TASKS_ID_PATTERN, path)) {
                         getTaskById(httpExchange);
                     } else {
                         getTasks(httpExchange);
                     }
                     break;
                 case "POST":
-                    postTask(httpExchange,path);
+                    postTask(httpExchange, path);
                     break;
                 case "DELETE":
                     deleteTask(httpExchange);
                     break;
                 default:
-                    sendHttpCode(httpExchange,"Method Not Allowed", 405);
+                    sendHttpCode(httpExchange, "Method Not Allowed", 405);
             }
         } catch (NotFoundException e) {
             sendNotFound(httpExchange, e.getMessage());
@@ -59,7 +60,7 @@ public class TaskHandler extends BaseHttpHandler implements HttpHandler {
         int id = Integer.parseInt(idString);
         Task tsk = taskManager.getTask(id);
         String respo = gson.toJson(tsk);
-        sendText(exchange,respo);
+        sendText(exchange, respo);
     }
 
     // GET (получение всех задач)
@@ -70,19 +71,19 @@ public class TaskHandler extends BaseHttpHandler implements HttpHandler {
     // POST (создание новой задачи или обновление существующей)
     public void postTask(HttpExchange exchange, String path) throws IOException {
         String body = new String(exchange.getRequestBody().readAllBytes(), StandardCharsets.UTF_8);
-            try {
-                Task task = gson.fromJson(body, Task.class);
-                task.setType(Type.TASK);
-                if (Pattern.matches("/tasks/\\d+$", path)) {
-                    taskManager.updateTask(task);
-                } else {
-                    taskManager.addTask(task);
-                }
-                sendCodeCreated(exchange);
-            } catch (NullPointerException e) {
-                throw new NotFoundException(e.getMessage());
+        try {
+            Task task = gson.fromJson(body, Task.class);
+            task.setType(Type.TASK);
+            if (Pattern.matches(PATH_TASKS_ID_PATTERN, path)) {
+                taskManager.updateTask(task);
+            } else {
+                taskManager.addTask(task);
             }
+            sendCodeCreated(exchange);
+        } catch (NullPointerException e) {
+            throw new NotFoundException(e.getMessage());
         }
+    }
 
     // DELETE (удаление задачи по ID)
     public void deleteTask(HttpExchange exchange) throws IOException {

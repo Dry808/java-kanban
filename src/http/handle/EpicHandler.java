@@ -13,6 +13,8 @@ import java.util.regex.Pattern;
 
 public class EpicHandler extends BaseHttpHandler implements HttpHandler {
     private TaskManager taskManager;
+    private static final String PATH_EPICS_ID_PATTERN = "/epics/\\d+$";
+    private static final String PATH_EPICS_ID_SUBTASKS_PATTERN = "/epics/\\d+/subtasks";
 
     public EpicHandler(TaskManager taskManager) {
         this.taskManager = taskManager;
@@ -26,10 +28,10 @@ public class EpicHandler extends BaseHttpHandler implements HttpHandler {
 
             switch (method) {
                 case "GET":
-                    if (Pattern.matches("/epics/\\d+$", path)) {
+                    if (Pattern.matches(PATH_EPICS_ID_PATTERN, path)) {
                         getEpicById(httpExchange);
                     } else {
-                        getEpics(httpExchange,path);
+                        getEpics(httpExchange, path);
                     }
                     break;
                 case "POST":
@@ -50,7 +52,6 @@ public class EpicHandler extends BaseHttpHandler implements HttpHandler {
         }
     }
 
-
     // GET (получение эпика по ID)
     public void getEpicById(HttpExchange exchange) throws IOException {
         String path = exchange.getRequestURI().getPath();
@@ -58,15 +59,12 @@ public class EpicHandler extends BaseHttpHandler implements HttpHandler {
         int id = Integer.parseInt(idString);
         Epic tsk = taskManager.getEpic(id);
         String respo = gson.toJson(tsk);
-        sendText(exchange,respo);
+        sendText(exchange, respo);
     }
 
-
-
-
-    // GET (получение всех эпиков)
+    // GET (получение всех эпиков или получение всех подзадач эпика)
     public void getEpics(HttpExchange exchange, String path) throws IOException {
-        if (Pattern.matches("/epics/\\d+/subtasks", path)) {
+        if (Pattern.matches(PATH_EPICS_ID_SUBTASKS_PATTERN, path)) {
             String idString = path.replaceAll("[^\\d]", "");
             int id = Integer.parseInt(idString);
             sendText(exchange, gson.toJson(taskManager.getEpic(id).getSubTasksId()));
@@ -80,7 +78,7 @@ public class EpicHandler extends BaseHttpHandler implements HttpHandler {
         try {
             Epic epic = gson.fromJson(body, Epic.class);
             epic.setType(Type.EPIC);
-            if (Pattern.matches("/epics/\\d+$", path)) {
+            if (Pattern.matches(PATH_EPICS_ID_PATTERN, path)) {
                 taskManager.updateEpic(epic);
             } else {
                 taskManager.addEpic(epic);
