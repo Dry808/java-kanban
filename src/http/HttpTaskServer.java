@@ -21,6 +21,7 @@ public class HttpTaskServer {
     public static void main(String[] args) {
         HttpTaskServer httpTaskServer = new HttpTaskServer(Managers.getDefault("file.csv"));
         httpTaskServer.start();
+        httpTaskServer.stop();
     }
 
     // метод настраивает контексты обработчиков и запускет сервер

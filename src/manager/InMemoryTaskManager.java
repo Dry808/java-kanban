@@ -33,7 +33,7 @@ public class InMemoryTaskManager implements TaskManager  {
 
     @Override
     public Task getTask(int id) throws NotFoundException {
-        if (tasks.containsKey(id)) {
+        if (!tasks.containsKey(id)) {
             throw new NotFoundException("Задачи с ID " + id + " не существует");
         }
         historyManager.add(tasks.get(id));
@@ -79,7 +79,7 @@ public class InMemoryTaskManager implements TaskManager  {
 
     @Override
     public Task deleteTask(int id) {
-        if (tasks.containsKey(id)) {
+        if (!tasks.containsKey(id)) {
             throw new NotFoundException("Задачи с ID " + id + " не существует");
         }
         historyManager.remove(id);
@@ -113,7 +113,7 @@ public class InMemoryTaskManager implements TaskManager  {
 
     @Override
     public SubTask getSubTask(int id) throws NotFoundException {
-        if (subTasks.containsKey(id)) {
+        if (!subTasks.containsKey(id)) {
             throw new NotFoundException("Подзадачи с ID " + id + " не существует");
         }
         SubTask subTask = subTasks.get(id);
@@ -157,7 +157,7 @@ public class InMemoryTaskManager implements TaskManager  {
 
     @Override
     public SubTask deleteSubTask(int id) throws NotFoundException {
-        if (subTasks.containsKey(id)) {
+        if (!subTasks.containsKey(id)) {
             throw new NotFoundException("Подзадачи с ID " + id + " не существует");
         }
         SubTask subTask = subTasks.remove(id);
@@ -184,7 +184,7 @@ public class InMemoryTaskManager implements TaskManager  {
 
     @Override
     public Epic getEpic(int id) throws NotFoundException {
-        if (epics.containsKey(id)) {
+        if (!epics.containsKey(id)) {
             throw new NotFoundException("Эпика с ID " + id + " не существует");
         }
         historyManager.add(epics.get(id));
@@ -215,7 +215,7 @@ public class InMemoryTaskManager implements TaskManager  {
 
     @Override
     public Epic deleteEpic(int id) throws NotFoundException {
-        if (epics.containsKey(id)) {
+        if (!epics.containsKey(id)) {
             throw new NotFoundException("Эпика с ID " + id + " не существует");
         }
         Epic epic = epics.get(id);
