@@ -41,11 +41,35 @@ O
 src/manager/HistoryManager.java,f\0\f0c741df96791e27097b39b0bc018b06cb88f0a9
 L
 test/models/SubTaskTest.java,1\7\17f7f097bbae50d2ac9fd262734be13bcc835c56
-G
-src/HttpTaskServer.java,5\0\504895c5e6a05b1039b5646df83050841ce93a93
-N
-src/server/HttpTaskServer.java,5\d\5da536c50dbf37b3b318e55abab2c3b6fb8a98fc
-O
-src/server/BaseHttpHandler.java,5\a\5a815d6db5a9adc48479011334edc992a1d04829
-K
-src/server/TaskHandler.java,b\5\b5def7b6b83a9ac40ca52c2f0b41a32ecaa280d8
+L
+src/http/HttpTaskServer.java,3\1\317d55dc379df3ae64df130edfa65c17c0f0f756
+T
+$src/http/handle/BaseHttpHandler.java,c\3\c36fa64950a0a40f974f671e9ffff05487519e59
+P
+ src/http/handle/TaskHandler.java,0\3\0343dfa53790ddf0770e1f6fdb43f40745bf6d30
+U
+%src/exceptions/NotFoundException.java,c\2\c21fbf875c32b8a24318e4e528c8b29f01645230
+S
+#src/http/handle/SubTaskHandler.java,1\d\1de82a3d09d5646d2844a23f938bbee987af9b03
+D
+src/models/Node.java,8\5\85733016cbceb983d144d546dddd53a39c194361
+P
+ src/http/handle/EpicHandler.java,9\1\91552e7c045e9d7dbcab6cc90a28f2d0fb3eea70
+S
+#src/http/handle/HistoryHandler.java,3\2\32fe76783ea7da861b57c955b66d151ea101ee35
+W
+'src/http/handle/PrioritizedHandler.java,f\2\f2b69c3d67c1e1fc0128c2477588c9e3f7a40fe4
+V
+&test/http/HttpTaskServerTasksTest.java,6\d\6d6707d0b7524f7269f3ca314adc09de55a6eda6
+Y
+)test/http/HttpTaskServerSubTasksTest.java,8\f\8f710876319c3b4d7411e9bbdbe4902f4b2494ec
+V
+&test/http/HttpTaskServerEpicsTest.java,0\d\0d33e3b31c0cb583bb58c44e8f65b260d8ab1a93
+T
+$test/http/HttpTaskServerHistory.java,6\c\6cffbddb1da0b8673ecc6eb8d1517df2231f665f
+\
+,test/http/HttpTaskServerPrioritizedTest.java,a\d\adbc245223505a804ff3114957b3f377f7620298
+Y
+)src/http/adapter/DurationTypeAdapter.java,2\0\20801775f66a21e3dec8a3cf713b583d61b81bc8
+^
+.src/http/adapter/LocalDateTimeTypeAdapter.java,3\d\3d59d82bc943b896f56c00b7268db36e67a05373

@@ -28,8 +28,9 @@ public class Main {
             //taskManager.deleteTask(4);
             taskManager.addEpic(epic2);
 
+            //  System.out.println(taskManager.getSubTasks());
 
 
-            //  FileBackedTaskManager taskManager1 = FileBackedTaskManager.loadFromFile("file.csv");
+              FileBackedTaskManager taskManager1 = FileBackedTaskManager.loadFromFile("file.csv");
     }
 }

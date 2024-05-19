@@ -1,5 +1,6 @@
 package models;
 
+
 import java.time.Duration;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -120,6 +121,10 @@ public class Task {
 
     public Type getType() {
         return type;
+    }
+
+    public void setType(Type type) {
+        this.type = type;
     }
 
     // метод для получения времени окончания таски
